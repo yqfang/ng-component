@@ -1,0 +1,6 @@
+<select ng-init="componentCtrl.ref.model=componentCtrl.field.candidates[0].value"        class="form-control"
+        ng-model="componentCtrl.ref.model"
+        ng-options="option.value as option.name for option in componentCtrl.field.candidates"
+        multiple 
+        ng-required="componentCtrl.field.required">
+</select>

@@ -1,0 +1,10 @@
+<up-site>
+    <div transclude-to="site-head">
+        {{title}}
+    </div>
+    <div transclude-to="site-menu">
+        <up-list ng-repeat="menu in menus" title="menu.title" closable items="menu.items"></up-list>
+    </div>
+    <div transclude-to="site-body" ng-transclude>
+    </div>
+</up-site>

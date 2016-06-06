@@ -1,0 +1,8 @@
+<ul>
+    <li ng-if="title" ng-click="clickTitle()" class="list-title" ng-bind="title"></li>
+    <div ng-show="open">
+        <li ng-repeat="item in items" ui-sref-active="{{item.state}}"
+            bind-html-compile="item">
+        </li>
+    </div>
+</ul>

@@ -1,0 +1,56 @@
+<style>
+    mod-query-edit .tab-content {
+        background: #ffffff;
+        border: 1px solid #cccccc;
+        border-top: 0;
+        padding: 10px 0px;
+        height: 100%;
+    }
+    .query-edit--form {
+        padding-top: 20px;
+    }
+    .query-edit--form label {
+        font-weight: bold;
+        font-size: 14px;
+        color: #666;
+    }
+    .query-edit--form .form-group {
+        margin-bottom: 20px;
+    }
+    .query-edit--form .btn {
+        margin-left: 20%;
+    }
+
+</style>
+<mod-query-edit >
+    <tabset transclude-to="tab" scretch="260">
+        <tab heading="查询辅助">
+            <form u-form
+                  class="query-edit--form"
+                  name="serviceform"
+                  ng-class="queryEdit.form.option.formClass"
+                  fields="queryEdit.form.fields"
+                  option="queryEdit.form.option"
+                  btn-handler="queryEdit.click(field)"
+                  result="queryEdit.result"
+                  ng-submit="queryEdit.submit(serviceform.$valid, queryEdit.result)"/>
+        </tab>
+        <tab heading="统计维度">
+            <form u-form
+                  class="query-edit--form"
+                  name="serviceform"
+                  ng-class="queryEdit.form.option.formClass"
+                  fields="queryEdit.form.fields"
+                  option="queryEdit.form.option"
+                  btn-handler="queryEdit.click(field)"
+                  result="queryEdit.result"
+                  ng-submit="queryEdit.submit(serviceform.$valid, queryEdit.result)"/>
+        </tab>
+    </tabset>
+    <query-edit-editor transclude-to="editor">
+        this is editor
+    </query-edit-editor>
+    <query-edit-table transclude-to="table">
+        this is table
+    </query-edit-table>
+</mod-query-edit>
