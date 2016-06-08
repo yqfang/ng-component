@@ -24,7 +24,7 @@
                         {
                             "name": "dim",
                             "type": "button",
-                            "label": "统计维度:",
+                            "label": "维度:",
                             "buttonName": "配置"
                         },
                         {
@@ -36,7 +36,7 @@
                         {
                             "name": "statistic",
                             "type": "button",
-                            "label": "统计指标:",
+                            "label": "指标:",
                             "buttonName": "配置"
                         }, {
                             "type": "input:submit",

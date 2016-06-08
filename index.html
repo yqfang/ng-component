@@ -2,13 +2,14 @@
 <html ng-app="maya">
 <head>
 	<title>angular-data-driven-form</title>
-	<meta charset=utf-8> 
+	<meta charset=utf-8>
 	<meta http-equiv=X-UA-Compatible content="IE=edge">
 	<meta name=viewport content="width=device-width,initial-scale=1">
 	<meta name="author" content="yqfang,qianzhixiang">
 	<!--<link href="lib/ripples.css" rel="stylesheet">-->
 	<link href="lib/bootstrap.css" rel="stylesheet">
 	<!--<link href="lib/bootstrap-material-design.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="lib/font-awesome-4.6.3/css/font-awesome.min.css">
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -35,6 +36,7 @@
 <script type="text/javascript" src="components/up-util/index.js"></script>
 <script type="text/javascript" src="components/up-site/index.js"></script>
 <script type="text/javascript" src="components/up-list/index.js"></script>
+<script type="text/javascript" src="components/up-icon/index.js"></script>
 <script type="text/javascript" src="components/up-link/index.js"></script>
 <script type="text/javascript" src="components/up-app/index.js"></script>
 <script type="text/javascript" src="app.js"></script>
@@ -49,13 +51,19 @@
 		color: #fff;
 		padding-top: 50px;
 	}
-
+    a:active, a:visited {
+        border: none;
+        outline: none;
+    }
+    .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+        color: #555;
+        cursor: default;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+    }
 	body, html {
 		background-color: #3a3c42;
-		height: 100%;
-	}
-	.up-site {
-		height: 100%;
 	}
 	.up-site--logo {
 		margin-right: 28px;
@@ -81,9 +89,14 @@
 		letter-spacing: 1mm;
 	}
 	.up-site--main {
+        z-index: 1020;
+        position: fixed;
+        overflow: hidden;
+        left: 10px;
+        right: 10px;
+        bottom: 60px;
+        top: 60px;
 		background-color: #eee;
-		margin: 10px;
-		height: 100%;
 		border-image: none;
 		border-left: 1px solid #d8d8d8;
 		border-radius: 3px;
@@ -103,13 +116,12 @@
 		border-bottom: 1px solid #eee;
 	}
 	.up-site--menu {
-		margin-top: 20px;
-		margin-right: -10px;
+		margin-left: 5px;
 		width:230px;
 		z-index: 102;
 		overflow-x: hidden;
-		position: fixed;
-		top: 50px;
+		position: absolute;
+		top: 30px;
 	}
 	.up-site--menu ul, .up-site--menu-title {
 		margin: 15px 15px 15px 15px;
@@ -148,26 +160,20 @@
 	}
 	.up-site--menu .active a {
 		border-color: #427fed;
+        background-color: #eee;
 
 	}
 	.up-site--body {
 		color: #000;
-		margin-top: 15px;
-		background-color: #eee;
-		border-color: #d8d8d8 #d8d8d8 #d5d5d5;
 		border-image: none;
-		border-left: 1px solid #d8d8d8;
 		border-radius: 3px;
-		border-right: 1px solid #d8d8d8;
-		border-style: solid;
-		border-width: 0 1px 2px;
-		margin-right: 15px;
 		width: auto;
 		position: absolute;
-		top: 60px;
-		left: 245px;
-		bottom: 0px;
-		right: 0px;
+		left: 240px;
+		bottom: 10px;
+		right: 10px;
+        top: 10px;
+        overflow:hidden;
 	}
 	.up-site--foot {
 		border-top: 1px solid #333;
@@ -188,7 +194,7 @@
 	}
 </style>
 
-	<up-app title="app.title" menus="app.menus">
+	<up-app name="app.name" menus="app.menus">
 		<div ui-view></div>
 	</up-app>
 

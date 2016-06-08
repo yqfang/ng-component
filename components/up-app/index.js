@@ -12,7 +12,7 @@
                 controllerAs: 'list',
                 transclude: true,
                 link: function (scope, elem, attrs)  {
-                    attrs.title && (scope.title = scope.$parent.$eval(attrs.title));
+                    attrs.name && (scope.name = scope.$parent.$eval(attrs.name));
                     attrs.menus && (scope.menus = scope.$parent.$eval(attrs.menus));
                 },
                 templateUrl: 'components/up-app/up-app.html'

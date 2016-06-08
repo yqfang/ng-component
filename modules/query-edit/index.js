@@ -6,6 +6,9 @@
             this.submit = function(valid, result) {
                 valid && (console.info(result))
             }
+            this.click = function(field) {
+
+            }
         })
 
 })()

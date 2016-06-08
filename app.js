@@ -5,16 +5,16 @@ var maya = {};
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
 				$rootScope.app = {
-					title: "中国银联参数统计平台",
+					name: "中国银联参数统计平台",
 					menus: [
 						{
-							title: "统计分析",
+							name: '<span up-icon="fa-camera-retro"> 统计分析</span>',
 							items: ['<up-link active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
 								'<up-link active-state="queryFavor" href="#/query/favor" name="我的查询"/>']
 						},
 						{
-							title: "业务规则管理",
-							items: ['<up-link active-state="configAuth" href="#/config/auth" name="权限管理"/>',
+							name: "业务规则管理",
+							items: ['<up-link up-icon="fa-camera-retro" active-state="configAuth" href="#/config/auth" name="权限管理"/>',
 								'<up-link active-state="configRule" href="#/config/rule" name="统计参数"/>']
 						}
 					]

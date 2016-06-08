@@ -23,9 +23,9 @@
 		}
 		.timepicker tr.text-center {
 			display: none;
-		}	
+		}
 	</style>
-<div class="form-group" ng-form="myForm" ng-repeat="field in form.fields track by $index">
+<div class="form-group" ng-class="field.name" ng-form="myForm" ng-repeat="field in form.fields track by $index">
 	<label ng-class="form.option.labelClass" class="control-label">
 	  <span ng-show="field.required && field.label">*</span>
 	  <span ng-if="field.type!='input:checkbox'">{{ field.label }}</span>

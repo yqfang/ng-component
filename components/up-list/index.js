@@ -13,7 +13,7 @@
                 },
                 controllerAs: 'list',
                 link: function (scope, elem, attrs)  {
-                    attrs.title && (scope.title = scope.$parent.$eval(attrs.title));
+                    attrs.name && (scope.name = scope.$parent.$eval(attrs.name));
                     scope.open = true;
                     attrs.hasOwnProperty('closable') && (scope.closable = true) && (scope.clickTitle = function() {scope.open = !scope.open});
                 },
