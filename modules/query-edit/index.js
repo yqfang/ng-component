@@ -32,14 +32,7 @@
 		    return out;
 		  };
 		})
-		.controller("queryEditCtrl", function(formMaker) {
-            this.form = formMaker.getServiceFields();
-            this.submit = function(valid, result) {
-                valid && (console.info(result))
-            }
-            this.click = function(field) {
-
-            };
+        .controller("queryEditCtrl", function(formMaker) {
             this.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
             this.sqlContent = "";
             this.buttons = [
