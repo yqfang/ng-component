@@ -1,0 +1,65 @@
+<style type="text/css">.navigator {
+    height: 100%;
+    padding: 0;
+    display: flex;
+    color:#fff;
+    flex-direction: column;
+}
+.navigator .label-wrapper {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #394555;
+}
+.navigator .tabs-wrapper {
+    flex: 1;
+}
+.navigator .tabs .tab {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size:13px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+.navigator .tabs .tab-item:hover {
+    background-color: rgba(82, 76, 80, 0.71);
+}
+.navigator .tabs .tab-title {
+    background-color: #101419;
+    padding-left:30px;
+    font-size: 14px;
+}
+.navigator .tabs .tab-item {
+    cursor: pointer;
+    background-color: #293038;
+    text-align: center;
+}
+.navigator .tabs .tab-item.active {
+    background-color: #4F5256;
+}
+.sidebar-content {
+	color: #FFF;
+}</style>
+<div class="navigator">
+	<div class="label-wrapper">
+		<label>导航栏</label>
+	</div>
+	<div class="tab-wrapper" oc-lazy-load="config.url.dynamicRouter">
+		<div class="tabs" ng-repeat="(key,list) in config.navs">
+			<div class="tab tab-title" ng-click="toggle(list)"> {{list.title}}</div>
+			<div ng-show="list.show"><a ng-repeat="item in list.navitems" dynamic-router ui-sref="{{item.state}}" data-router="{{item}}" class="tab tab-item" ui-sref-active="active">{{item.name}}</a></div>
+		</div>
+		<!--<ul class="sidebar-items">-->
+			<!--<li ng-repeat="nav in config.navs">-->
+				<!--<div>{{nav.title}}</div>-->
+				<!--<ul oc-lazy-load="config.url.dynamicRouter">-->
+					<!--<li ui-sref-active="active" ng-repeat="item in nav.navitems">-->
+					<!--<a dynamic-router ui-sref="{{item.state}}" data-url='{{item.url}}' data-dir='{{item.dir}}'>{{item.name}}</a>-->
+				<!--</ul>-->
+			<!--</li>-->
+		<!--</ul>-->
+	</div>
+</div>

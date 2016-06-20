@@ -1,0 +1,17 @@
+<div>
+<div class="col-xs-6 control-datepicker">
+	<input type="text" 
+		   class="form-control datepicker" 
+	       datepicker-popup="yyyy-MM-dd" 
+	       ng-model="componentCtrl.ref.model" 
+	       ng-init="componentCtrl.field.open=false" 
+	       is-open="componentCtrl.field.open" 
+	       show-button-bar="false"
+	       ng-click="componentCtrl.field.open=!componentCtrl.field.open"/>
+</div>
+
+<div>
+	<div class="timepicker" timepicker ng-model="componentCtrl.ref.model"></div>
+</div>
+</div>
+

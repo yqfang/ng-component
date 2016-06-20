@@ -1,0 +1,55 @@
+<style type="text/css">.viewFramework-body {
+    position: absolute;
+    width: 100%;
+    top: 55px;
+    bottom: 46px;
+    z-index: 100;
+}
+
+.viewFramework-sidebar {
+    width: 180px;
+    display: block;
+    position: fixed;
+    top: 55px;
+    bottom: 46px;
+    background-color: #293038;
+    z-index: 102;
+    overflow-x: hidden;
+}
+
+.viewFramework-sidebar-full .viewFramework-product {
+    left: 180px;
+}
+.viewFramework-product {
+    width: auto;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+    background: #FFF;
+}</style>
+<!-- ngIf: config.showTopbar -->
+<div class="viewFramework-topbar"  oc-lazy-load="config.url.topbar">
+	<div maya-topbar></div>
+</div>
+<!-- end ngIf: config.showTopbar -->
+<div class="viewFramework-body viewFramework-sidebar-full">
+
+	<div class="viewFramework-sidebar" oc-lazy-load="config.url.sidebar">
+		<div maya-sidebar></div>
+	</div>
+	<div class="viewFramework-product">
+		<div class="viewFramework-product-body">
+			<!-- product body -->
+			<div ng-transclude>
+				
+			</div>
+			<!-- /product body -->
+		</div>
+	</div>
+</div>
+<div oc-lazy-load="config.url.bottombar">
+    <div maya-bottombar></div>
+</div>
