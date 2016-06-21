@@ -76,7 +76,7 @@
                             }
                         ],
                         "option": {
-                            "formClass": "form-inline",
+                            "formClass": "form-inline query-edit--table-fliter",
                             "inputClass": "inline-control"
                         }
                     }
