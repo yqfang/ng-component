@@ -10,7 +10,7 @@ var maya = {};
 						{
 							name: '<span up-icon="fa-camera-retro"> 统计分析</span>',
 							items: ['<up-link active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
-								'<up-link active-state="queryFavor" href="#/query/favor" name="我的查询"/>']
+								'<up-link active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
 						},
 						{
 							name: "业务规则管理",
@@ -55,7 +55,7 @@ var maya = {};
 				})
 				.state('queryFavor', {
 					url: '/query/favor',
-					template: '<div>我的查询</div>'
+					template: '<div>我的收藏</div>'
 				})
 				.state('configRule', {
 					url: '/config/rule',
