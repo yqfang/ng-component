@@ -7,9 +7,12 @@
 	<meta name=viewport content="width=device-width,initial-scale=1">
 	<meta name="author" content="yqfang,qianzhixiang">
 	<!--<link href="lib/ripples.css" rel="stylesheet">-->
-	<link href="lib/bootstrap.css" rel="stylesheet">
+	<link rel="icon" type="image/ico" href="http://o6lt5vq1m.bkt.clouddn.com/bitbug_favicon.ico"/>
+	<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 	<!--<link href="lib/bootstrap-material-design.css" rel="stylesheet">-->
     <link rel="stylesheet" href="lib/font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/codemirror/theme/twilight.css">
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -30,7 +33,10 @@
 <script type="text/javascript" src="lib/angular-ui-router.js"></script>
 <script type="text/javascript" src="lib/ct-ui-router-extras.js"></script>
 <script type="text/javascript" src="lib/ocLazyLoad.js"></script>
-
+<script type="text/javascript" src="node_modules/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="node_modules/codemirror/mode/sql/sql.js"></script>
+<script type="text/javascript" src="node_modules/angular-ui-codemirror/src/ui-codemirror.js"></script>
+<script type="text/javascript" src="node_modules/angular-smart-table/dist/smart-table.min.js"></script>
 <!--up-component-->
 <script type="text/javascript" src="components/index.js"></script>
 <script type="text/javascript" src="components/up-util/index.js"></script>
@@ -168,7 +174,7 @@
 		border-radius: 3px;
 		width: auto;
 		position: absolute;
-		left: 240px;
+		left: 230px;
 		bottom: 10px;
 		right: 10px;
         top: 10px;
