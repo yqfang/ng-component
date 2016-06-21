@@ -8,14 +8,14 @@ var maya = {};
 					name: "中国银联参数统计平台",
 					menus: [
 						{
-							name: '<span up-icon="fa-camera-retro"> 统计分析</span>',
-							items: ['<up-link active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
-								'<up-link active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
+							name: '<span up-icon="fa-camera-retro fa-lg" up-icon-prepend>统计分析</span>',
+							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
+								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
 						},
 						{
-							name: "业务规则管理",
-							items: ['<up-link up-icon="fa-camera-retro" active-state="configAuth" href="#/config/auth" name="权限管理"/>',
-								'<up-link active-state="configRule" href="#/config/rule" name="统计参数"/>']
+							name: '<span up-icon="fa-camera-retro fa-lg" up-icon-prepend>业务规则管理</span>',
+							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="configAuth" href="#/config/auth" name="权限管理"/>',
+								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="configRule" href="#/config/rule" name="统计参数"/>']
 						}
 					]
 				}
@@ -30,7 +30,8 @@ var maya = {};
 							"modules/query-edit/index.js",
 							"modules/query-edit/mod-query-edit/index.js",
 							"modules/query-edit/service/formMaker.js",
-							"modules/query-edit/query-edit-desc/index.js"
+							"modules/query-edit/query-edit-desc/index.js",
+							"modules/query-edit/service/HTTP.js"
 						]
 					}
 				]
@@ -66,4 +67,33 @@ var maya = {};
 					template: '<div>用户权限管理</div>'
 				})
 		})
+		app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
+		        var httpInterceptor = {
+		            'request' : function(config) {
+		            	if(config.method == "POST" && !config.uni_obj) {
+		            		config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+		            		config.transformRequest = function(obj){
+			            		var str = [];
+								for(var i in obj){
+		                            if(typeof obj[i] == "object") {
+		                                str.push(encodeURIComponent(i) + "=" + encodeURIComponent(angular.toJson(obj[i])));
+
+		                            } else {
+		                                str.push(i + "=" + obj[i]);
+		                            }
+								};
+		                        console.log(str);
+								return str.join("&");
+			           		};
+		            	}
+		                return config;
+		            },
+		        }
+		    return httpInterceptor;
+		}])
+		app.config(function($httpProvider){
+			$httpProvider.interceptors.push('httpInterceptor');
+			$httpProvider.defaults.withCredentials = true;
+		})
+		
 })(maya)
