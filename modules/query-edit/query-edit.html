@@ -1,7 +1,4 @@
 <style>
-    .query-edit {
-
-    }
     .mod-query-edit .tab-content {
         background: #f5f5f5;
         border-color: #d8d8d8 #d8d8d8 #d5d5d5;
@@ -21,13 +18,13 @@
     .mod-query-edit .tab-content .form-group {
         margin: 10px 0;
     }
-    .query-edit--tab {
+    .query-edit--form {
         width: 270px;
         position: absolute;
         top: 20px;
         bottom: 60px;
     }
-    .query-edit--tab [tabset] {
+    .query-edit--form [tabset] {
         height: 100%;
     }
     .query-edit--form {
@@ -45,12 +42,12 @@
         margin-left: 20%;
     }
     .query-edit--content {
-        margin-left: 300px;
+        margin-left: 280px;
     }
 
 </style>
 <div mod-query-edit class="mod-query-edit">
-    <div tabset transclude-to="tab">
+    <div tabset transclude-to="form">
         <div tab heading="查询辅助">
             <form class="form-horizontal">
               <div class="form-group">
@@ -77,11 +74,8 @@
             </form>
         </div>
         <div style="text-align:center;">
-                <div class="btn btn-success">新建查询</div>
+                <div class="btn btn-success" up-icon="fa fa-plus" up-icon-append>新建查询</div>
         </div>
-    </div>
-    <div transclude-to="editor">
-        
     </div>
     <div transclude-to="table">
         <div query-edit-desc>
