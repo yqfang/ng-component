@@ -29,8 +29,7 @@ var maya = {};
 						files: [
 							"modules/query-edit/index.js",
 							"modules/query-edit/mod-query-edit/index.js",
-							"modules/query-edit/service/formMaker.js",
-							"modules/query-edit/query-edit-desc/index.js"
+							"modules/query-edit/service/formMaker.js"
 						]
 					}
 				]

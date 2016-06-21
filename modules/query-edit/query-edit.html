@@ -15,12 +15,6 @@
         height: 100%;
         overflow: hidden;
     }
-    .mod-query-edit .tab-content .btn {
-        margin: 10px;
-    }
-    .mod-query-edit .tab-content .form-group {
-        margin: 10px 0;
-    }
     .query-edit--tab {
         width: 270px;
         position: absolute;
@@ -52,33 +46,7 @@
 <div mod-query-edit class="mod-query-edit">
     <div tabset transclude-to="tab">
         <div tab heading="查询辅助">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-3 control-label">描述</label>
-                <div class="col-sm-9">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="描述">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-3 control-label">维度</label>
-                <div class="col-sm-9">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="维度">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-3 control-label">业务</label>
-                <div class="col-sm-9">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="业务">
-                </div>
-              </div>
-              <button class="btn btn-success pull-right">查询</button><button class="btn btn-primary pull-right">高级查询</button>
-            </form>
-            <!-- <form u-form
-=======
             <form u-form
->>>>>>> origin/master
                   class="query-edit--form"
                   name="serviceform"
                   ng-class="queryEdit.form.option.formClass"
@@ -86,19 +54,25 @@
                   option="queryEdit.form.option"
                   btn-handler="queryEdit.click(field)"
                   result="queryEdit.result"
-<<<<<<< HEAD
-                  ng-submit="queryEdit.submit(serviceform.$valid, queryEdit.result)"/> -->
+                  ng-submit="queryEdit.submit(serviceform.$valid, queryEdit.result)"/>
         </div>
-        <div style="text-align:center;">
-                <div class="btn btn-success">新建查询</div>
+        <div tab heading="统计维度">
+            this 2
+            <!--<form u-form-->
+                  <!--class="query-edit&#45;&#45;form"-->
+                  <!--name="serviceform"-->
+                  <!--ng-class="queryEdit.form.option.formClass"-->
+                  <!--fields="queryEdit.form.fields"-->
+                  <!--option="queryEdit.form.option"-->
+                  <!--btn-handler="queryEdit.click(field)"-->
+                  <!--result="queryEdit.result"-->
+                  <!--ng-submit="queryEdit.submit(serviceform.$valid, queryEdit.result)"/>-->
         </div>
     </div>
     <div transclude-to="editor">
-        
+        this is editor
     </div>
     <div transclude-to="table">
-        <div query-edit-desc>
-            
-        </div>
+        this is table
     </div>
 </div>
