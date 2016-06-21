@@ -50,6 +50,36 @@
                     }
 
                     }
+                },
+                getTableFliter: function() {
+                    return {
+                        "fields": [
+                            {
+                                "name": "desc",
+                                "type": "input",
+                                "label": "描述",
+                                "placeholder": "描述"
+                            },
+                            {
+                                "name": "startDate",
+                                "type": "input:date",
+                                "label": "起始时间",
+                            },
+                            {
+                                "name": "endDate",
+                                "type": "input:date",
+                                "label": "结束时间",
+                            },
+                            {
+                                "type": "input:submit",
+                                "value": "查询"
+                            }
+                        ],
+                        "option": {
+                            "formClass": "form-inline",
+                            "inputClass": "inline-control"
+                        }
+                    }
                 }
             }
         })

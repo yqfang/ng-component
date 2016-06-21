@@ -20,7 +20,7 @@ var maya = {};
 					]
 				}
 		    })
-		app.config(function($ocLazyLoadProvider) {
+		app.config(function($ocLazyLoadProvider, datepickerConfig) {
 			$ocLazyLoadProvider.config({
 				debug: false,
 				modules: [
@@ -35,7 +35,8 @@ var maya = {};
 						]
 					}
 				]
-			})
+			});
+			datepickerConfig.showWeeks = false;
 		})
 		app.config(function(datepickerConfig, $stateProvider, $urlRouterProvider) {
 			datepickerConfig.showWeeks = false;

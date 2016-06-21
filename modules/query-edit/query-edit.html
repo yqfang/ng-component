@@ -1,6 +1,48 @@
 <link rel="stylesheet" type="text/css" href="modules/query-edit/style.css">
+<style>
+    .mod-query-edit .tab-content .btn {
+
+    }
+    .query-edit--form {
+        width: 270px;
+        position: absolute;
+        top: 20px;
+        bottom: 60px;
+    }
+    .query-edit--form [tabset] {
+        height: 100%;
+    }
+    .query-edit--form {
+        padding-top: 20px;
+    }
+    .query-edit--form label {
+        font-weight: bold;
+        font-size: 14px;
+        color: #666;
+    }
+    .query-edit--form .btn {
+        margin-left: 20%;
+    }
+    .query-edit--content {
+        margin-left: 280px;
+    }
+    .span-item-wrapper {
+      line-height:2;
+    }
+    .span-item {
+        background-color: #e08d8d;
+        color: white;
+        padding: 2px;
+        margin: 2px;
+    }
+    .span-item:hover {
+      background-color: #fb8484;
+      cursor: pointer;
+    }
+
+</style>
 <div mod-query-edit class="mod-query-edit">
-    <div tabset transclude-to="tab">
+    <div tabset transclude-to="form">
         <div tab heading="查询辅助">
             <form class="form-horizontal">
               <div class="form-group">
@@ -14,25 +56,31 @@
                 <div class="col-sm-9" style="padding-left:5px;">
                   <button class="btn btn-primary" ng-click="queryEdit.openStatistic()">配置</button>
                   <div class="uni-select">
-                       <span>asdasd:</span>
+                       <span ng-repeat="(key,value) in queryEdit.lists['1']" class="span-item-wrapper">{{value.item.paraNm + ":"}}
+                        <span ng-repeat="item in value.data" class="span-item" ng-if="item.isChoosen">{{item.value}} <span class="fa fa-close" ng-click="queryEdit.closeStatisticChooen(item)"></span></span>
+                       <br/></span>
                     </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">业务</label>
                 <div class="col-sm-9" style="padding-left:5px;">
-                  <button class="btn btn-primary">配置</button>
+                  <button class="btn btn-primary" ng-click="queryEdit.openService(2)">配置</button>
                     <div class="uni-select">
-                       <span>asdasd</span>
+                       <span class="span-item-wrapper">
+                         <span  class="span-item">asdklmlkm <span class="fa fa-close"></span></span>
+                       </span>
                     </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">指标</label>
                 <div class="col-sm-9" style="padding-left:5px;">
-                    <button class="btn btn-primary">配置</button>
+                    <button class="btn btn-primary" ng-click="queryEdit.openService(3)">配置</button>
                     <div class="uni-select">
-                       <span>asdasd</span>
+                       <span class="span-item-wrapper">
+                         <span  class="span-item">asdklmlkm <span class="fa fa-close"></span></span>
+                       </span>
                     </div>
                     <!-- <select multiple class="form-control">
                       <option>1</option>
@@ -49,11 +97,8 @@
             </div>
         </div>
         <div style="text-align:center;">
-                <div class="btn btn-success">新建查询</div>
+                <div class="btn btn-success" up-icon="fa fa-plus" up-icon-append>新建查询</div>
         </div>
-    </div>
-    <div transclude-to="editor">
-        
     </div>
     <div transclude-to="table">
         <div query-edit-desc>
