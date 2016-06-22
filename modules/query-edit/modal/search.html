@@ -1,0 +1,11 @@
+<div class="modal_wrapper">
+    <div class="modal-header" style="color: black;">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body" style="color: black;max-height: 300px;overflow: auto;">
+       <div  ui-codemirror ui-codemirror-opts="editorConfig" ng-model="sqlContent"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">确定</button>
+    </div>    
+</div>

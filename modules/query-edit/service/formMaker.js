@@ -61,7 +61,7 @@
                                 "placeholder": "描述"
                             },
                             {
-                                "name": "startDate",
+                                "name": "startTime",
                                 "type": "input:date",
                                 "label": "起始时间",
                                 "style": {
@@ -70,7 +70,7 @@
                                 
                             },
                             {
-                                "name": "endDate",
+                                "name": "endTime",
                                 "type": "input:date",
                                 "label": "结束时间",
                                 "style": {
