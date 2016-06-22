@@ -64,11 +64,18 @@
                                 "name": "startTime",
                                 "type": "input:date",
                                 "label": "起始时间",
+                                "style": {
+                                    "width": "110px"
+                                }
+                                
                             },
                             {
                                 "name": "endTime",
                                 "type": "input:date",
                                 "label": "结束时间",
+                                "style": {
+                                    "width": "110px"
+                                }
                             },
                             {
                                 "type": "input:submit",

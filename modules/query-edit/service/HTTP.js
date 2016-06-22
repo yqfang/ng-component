@@ -1,7 +1,7 @@
 (function () {
 
     angular.module('mod-query-edit')
-        .factory("queryEditHttp", function($q,$http) {
+        .factory("queryEditHttp", function($q,$http,$modal) {
             var http = {};
             http.getBuss = function(type){
                 var deferred = $q.defer();
@@ -61,7 +61,7 @@
                             };
                             if(arr.length > 0) {
                                 obj.key = key;
-                                obj.value = arr.toString();
+                                obj.value = arr.join(";");
                                 result.push(obj);
                             }
                         }
@@ -98,11 +98,14 @@
                 })
                 return deferred.promise;
             };
-            http.store = function(param){
+            http.store = function(content){
                 var deferred = $q.defer();
                 // {"storeContent": service.sqlContent},{uni_obj: true}
-                $http.post("newStore",{"storeContent": param},{uni_obj: true}).then(function(data){
+                var name = prompt("请输入您的名字","");
+                $http.post("newStore",{"storeContent": content,"storeNm": name ? name :"default"}).then(function(data){
                     deferred.resolve(data.data);
+                },function(){
+                    deferred.reject();
                 })
                 return deferred.promise;
             }

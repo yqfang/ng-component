@@ -19,7 +19,6 @@
             	for(var i in value) {
             		len++;
             	}
-            	console.log(len);
             	return len == 0 ? true : false;
             };
             this.closeStatisticChooen = function(item){
@@ -103,7 +102,7 @@
             	}
             };
 
-            function openSearchModal(ifshow){
+            function openSearchModal(ifshow,data){
                 $modal.open({
                     templateUrl: "modules/query-edit/modal/search.html",
                     controller: "queryEditSearch",
@@ -126,21 +125,48 @@
                             return function(){
 
                             }
+                        },
+                        content: function(){
+                            return data;
                         }
                     }
                 })
             }
+            this.beginDate = {
+                value: null,
+                opened: false
+            };
+            this.endDate = {
+                value: null,
+                opened: false
+            };
+            this.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+              };
             this.search = function(){
-                openSearchModal(true);
+                if(me.beginDate.value && me.endDate.value && me.beginDate.value instanceof Date && me.endDate.value instanceof Date) {
+                   queryEditHttp.generate(me.lists,me.beginDate.value,me.endDate.value).then(function(data){
+                        openSearchModal(true,data);
+                    })  
+                } else {
+                    alert("时间格式有问题！");
+                }
+                
             };
             this.highSearch = function(){
                  openSearchModal(false);
             };
             this.newSearch = function(){
-
+                me.lists = {
+                    "1": {},
+                    "2": null,
+                    "3": null
+                };
+                me.desc = "";
             }
 	    })
-        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec){
+        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content){
             $scope.lists = lists;//getCalendar
             var me = this;
             $scope.ifshow = ifshow;
@@ -153,24 +179,13 @@
                 lineNumbers: true,
                 mode: "text/x-mariadb",
                 onLoad: function(cmInstance) {
+                    cmInstance.setOption('lineWrapping', true);
                     setTimeout(function() {
                         cmInstance.refresh();
                     }, 0);
                 }
             };
-            $scope.sqlContent = "select * from qianzhixiang";
-            $scope.dateOptions = {
-                formatYear: 'yy',
-                startingDay: 1
-              };
-            $scope.beginDate = {
-                value: null,
-                opened: false
-            };
-            $scope.endDate = {
-                value: null,
-                opened: false
-            };
+            $scope.sqlContent = content ? content : "";
             $scope.generate = function(){
                 queryEditHttp.generate(lists,$scope.beginDate.value,$scope.endDate.value).then(function(data){
                     $scope.sqlContent = data;
@@ -179,11 +194,12 @@
             $scope.exec = function(){
                 var desc = parent.desc;
                 var content = $scope.sqlContent;
-                console.log(queryEditDescService);
                 queryEditHttp.exec({
                     sql: content,
                     queryName: desc
                 }).then(function(data){
+                    $modalInstance.close();
+
                     queryEditHttp.queryQueue({
                         "desc": queryEditDescService.result.desc != null ? queryEditDescService.result.desc : "",
                         "pageNum":1,
@@ -198,12 +214,15 @@
             };
             $scope.store = function(){
                  queryEditHttp.store($scope.sqlContent).then(function(data){
-                    
+                    confirm('收藏成功');
+                 },function(){
+                     confirm('收藏失败');
                  })
             };
             $scope.close = function(){
                 $modalInstance.close();
             }
+
         })
 	    .controller('queryEditChoosen',function($scope,lists,id,$modalInstance){
 	    	$scope.lists = lists;
@@ -246,9 +265,7 @@
 	    	}
 			$scope.choosenItemLeft(temp.tempItem);
 			$scope.choosenItemRight = function(item){
-				console.log(item)
 				if(item) {
-					console.log(item)
 					item.isChoosen = !item.isChoosen;
 				}
 			}

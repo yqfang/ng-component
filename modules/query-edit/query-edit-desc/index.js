@@ -41,14 +41,13 @@
                     this.submit = function name(valid, result,page) {
                         if(valid) {
                             var temp = {};
-                            temp.startTime = transformDate(result.startTime);
-                            temp.endTime = transformDate(result.endTime);
+                            temp.startTime = transformDate(queryEditDescService.result.startTime);
+                            temp.endTime = transformDate(queryEditDescService.result.endTime);
                             temp.pageNum = page != null ? page : 1;
                             temp.pageSize = 7;
-                            temp.desc = result.desc;
+                            temp.desc = queryEditDescService.result.desc == null ? "" : queryEditDescService.result.desc;
                             queryEditHttp.queryQueue(temp).then(function(data){
                                 $scope.results = data;
-                                console.log(me.fields)
                             })
                         }
                     }

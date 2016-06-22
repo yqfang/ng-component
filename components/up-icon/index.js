@@ -36,7 +36,7 @@
                     
                     //trick: timeout the dom update util the next digest so the innerHTMER will be prepared
                     $timeout(function(){
-                        _append ? (child.innerHTML = child.innerHTML + _blankStr + '<i class="fa ' + attr['upIcon'] + '"></i>') : (child.innerHTML = '<i class="fa ' + attr['upIcon'] + '"></i>' + _blankStr + child.innerHTML);
+                        _append ? (child.innerHTML = '<span class="menu-title">' + child.innerHTML + _blankStr + '</span>'  + '<i class="fa ' + attr['upIcon'] + '"></i>') : (child.innerHTML = '<i class="fa ' + attr['upIcon'] + '"></i>' + '<span class="menu-title">' + _blankStr + child.innerHTML + '</span>');
                     }, 0);
                 }
             }

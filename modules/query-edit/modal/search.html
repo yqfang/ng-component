@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
     .modal_wrapper.search {
         padding: 20px;
@@ -47,14 +48,6 @@
     </div>
     <div class="modal-body" style="color: black;height: 300px;overflow: auto;margin-top: 10px;">
        <div ng-if="ifshow" class="left-content">
-        <div class="date-wrapper">
-           <span class="title">起始日期:</span>
-           <input class="calendar" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="beginDate.value" is-open="beginDate.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" datepicker-append-to-body="true" ng-click="beginDate.opened = true"/>
-        </div>
-        <div class="date-wrapper">
-           <span class="title">结束日期:</span>
-           <input class="calendar" type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="endDate.value" is-open="endDate.opened" datepicker-options="dateOptions" ng-required="true" show-button-bar="false" datepicker-append-to-body="true" ng-click="endDate.opened = true"/>
-        </div>
            <div class="single-item">
                <h3>维度</h3>
                <div ng-repeat="item in lists['1']" style="margin-left:20px;">
@@ -72,7 +65,7 @@
        <div ng-class="{'show-left-content': ifshow}"  ui-codemirror ui-codemirror-opts="editorConfig" class="uni-codemirror" ng-model="sqlContent"></div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-if="ifshow" ng-click="generate()">生成</button>
+        <!-- <button class="btn btn-success" ng-if="ifshow" ng-click="generate()">生成</button> -->
         <button class="btn btn-primary" ng-click="exec()">执行</button>
         <button class="btn btn-warning" ng-click="store()">收藏</button>
         <button class="btn btn-danger" ng-click="close()">关闭</button>
