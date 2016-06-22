@@ -1,40 +1,9 @@
 (function () {
 
     angular.module('mod-query-edit')
-    	.filter('propsFilter', function() {
-		  return function(items, props) {
-		    var out = [];
-
-		    if (angular.isArray(items)) {
-		      var keys = Object.keys(props);
-		        
-		      items.forEach(function(item) {
-		        var itemMatches = false;
-
-		        for (var i = 0; i < keys.length; i++) {
-		          var prop = keys[i];
-		          var text = props[prop].toLowerCase();
-		          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-		            itemMatches = true;
-		            break;
-		          }
-		        }
-
-		        if (itemMatches) {
-		          out.push(item);
-		        }
-		      });
-		    } else {
-		      // Let the output be the input untouched
-		      out = items;
-		    }
-
-		    return out;
-		  };
-		})
-
-        .controller("queryEditCtrl", function(formMaker,$rootScope, currentModule,queryEditHttp,$modal,$q) {
+        .controller("queryEditCtrl", function(formMaker,$rootScope, queryEditDescService,currentModule,queryEditHttp,$modal,$q) {
         	var me = this;
+			$rootScope.app.currentModule = currentModule;
             this.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
             this.sqlContent = "";
             this.lists = {
@@ -42,19 +11,27 @@
             	"2": null,
             	"3": null
             };
+            queryEditDescService.result.endTime = new Date();
+            queryEditDescService.result.startTime = new Date(queryEditDescService.result.endTime.getTime() - 7 * 24 * 3600 * 1000);
             this.statisticData = null;
             this.isObjEmpty = function(value){
             	var len = 0;
             	for(var i in value) {
             		len++;
             	}
-            	console.log(len);
             	return len == 0 ? true : false;
             };
             this.closeStatisticChooen = function(item){
             	item.isChoosen = false;
             };
-
+            this.beginTime = null;
+            this.beginOpened = true;
+            this.endTime = null;
+            this.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+            };
+            this.desc = "";
             function openModal (data){
             	if(!me.temp.tempItem) {
             		me.temp.tempItem = data[0] ? data[0] : null;
@@ -125,43 +102,127 @@
             	}
             };
 
-            function openSearchModal(ifshow){
+            function openSearchModal(ifshow,data){
                 $modal.open({
                     templateUrl: "modules/query-edit/modal/search.html",
                     controller: "queryEditSearch",
                     resolve: {  
-                        lists: me.lists,
-                        ifshowList: function(){
+                        lists: function(){
+                            return me.lists;
+                        },
+                        ifshow: function(){
                             return ifshow;
                         },
                         onOk: function(){
                             return function(){
 
                             }
+                        },
+                        parent: function(){
+                            return me;
+                        },
+                        afterExec: function(){
+                            return function(){
+
+                            }
+                        },
+                        content: function(){
+                            return data;
                         }
                     }
                 })
             }
+            this.beginDate = {
+                value: null,
+                opened: false
+            };
+            this.endDate = {
+                value: null,
+                opened: false
+            };
+            this.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1
+              };
             this.search = function(){
-                openSearchModal(true);
+                if(me.beginDate.value && me.endDate.value && me.beginDate.value instanceof Date && me.endDate.value instanceof Date) {
+                   queryEditHttp.generate(me.lists,me.beginDate.value,me.endDate.value).then(function(data){
+                        openSearchModal(true,data);
+                    })  
+                } else {
+                    alert("时间格式有问题！");
+                }
+                
             };
             this.highSearch = function(){
                  openSearchModal(false);
             };
             this.newSearch = function(){
-
+                me.lists = {
+                    "1": {},
+                    "2": null,
+                    "3": null
+                };
+                me.desc = "";
             }
 	    })
-        .controller("queryEditSearch",function($scope,lists,$modalInstance,ifshowList){
-            $scope.lists = lists;
-            $scope.ifshowList = ifshowList;
-            if(ifshowList) {
+        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content){
+            $scope.lists = lists;//getCalendar
+            var me = this;
+            $scope.ifshow = ifshow;
+            if(ifshow) {
                 $scope.title = "查询";
             } else {
                 $scope.title = "新建查询";
             }
-            $scope.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
-            $scope.sqlContent = "select * from qianzhixiang";
+            $scope.editorConfig = {
+                lineNumbers: true,
+                mode: "text/x-mariadb",
+                onLoad: function(cmInstance) {
+                    cmInstance.setOption('lineWrapping', true);
+                    setTimeout(function() {
+                        cmInstance.refresh();
+                    }, 0);
+                }
+            };
+            $scope.sqlContent = content ? content : "";
+            $scope.generate = function(){
+                queryEditHttp.generate(lists,$scope.beginDate.value,$scope.endDate.value).then(function(data){
+                    $scope.sqlContent = data;
+                })
+            };
+            $scope.exec = function(){
+                var desc = parent.desc;
+                var content = $scope.sqlContent;
+                queryEditHttp.exec({
+                    sql: content,
+                    queryName: desc
+                }).then(function(data){
+                    $modalInstance.close();
+
+                    queryEditHttp.queryQueue({
+                        "desc": queryEditDescService.result.desc != null ? queryEditDescService.result.desc : "",
+                        "pageNum":1,
+                        "pageSize":7,
+                        "startTime": queryEditDescService.transformDate(queryEditDescService.result.startTime),
+                        "endTime": queryEditDescService.transformDate(queryEditDescService.result.endTime)
+                    }).then(function(data){
+                         queryEditDescService.scope.results = data;
+                    })
+                })
+
+            };
+            $scope.store = function(){
+                 queryEditHttp.store($scope.sqlContent).then(function(data){
+                    confirm('收藏成功');
+                 },function(){
+                     confirm('收藏失败');
+                 })
+            };
+            $scope.close = function(){
+                $modalInstance.close();
+            }
+
         })
 	    .controller('queryEditChoosen',function($scope,lists,id,$modalInstance){
 	    	$scope.lists = lists;
@@ -248,9 +309,7 @@
 	    	}
 			$scope.choosenItemLeft(temp.tempItem);
 			$scope.choosenItemRight = function(item){
-				console.log(item)
 				if(item) {
-					console.log(item)
 					item.isChoosen = !item.isChoosen;
 				}
 			}
