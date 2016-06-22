@@ -1,6 +1,6 @@
 var maya = {};
 ;(function() {
-	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap','up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad']);
+	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap','up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad','ui.codemirror']);
 		app.run(function ($rootScope, $state, $stateParams) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
@@ -31,7 +31,8 @@ var maya = {};
 							"modules/query-edit/index.js",
 							"modules/query-edit/mod-query-edit/index.js",
 							"modules/query-edit/service/formMaker.js",
-							"modules/query-edit/query-edit-desc/index.js"
+							"modules/query-edit/query-edit-desc/index.js",
+							"modules/query-edit/service/HTTP.js"
 						]
 					}
 				]
@@ -86,4 +87,33 @@ var maya = {};
 					}
 				})
 		})
+		app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
+		        var httpInterceptor = {
+		            'request' : function(config) {
+		            	if(config.method == "POST" && !config.uni_obj) {
+		            		config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+		            		config.transformRequest = function(obj){
+			            		var str = [];
+								for(var i in obj){
+		                            if(typeof obj[i] == "object") {
+		                                str.push(encodeURIComponent(i) + "=" + encodeURIComponent(angular.toJson(obj[i])));
+
+		                            } else {
+		                                str.push(i + "=" + obj[i]);
+		                            }
+								};
+		                        console.log(str);
+								return str.join("&");
+			           		};
+		            	}
+		                return config;
+		            },
+		        }
+		    return httpInterceptor;
+		}])
+		app.config(function($httpProvider){
+			$httpProvider.interceptors.push('httpInterceptor');
+			$httpProvider.defaults.withCredentials = true;
+		})
+		
 })(maya)

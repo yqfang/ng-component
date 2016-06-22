@@ -2,8 +2,20 @@
  * Created by qianzhixiang on 16/5/11.
  */
 (function() {
+    function transformDate(date){
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        if(month < 10) {
+            month = "0" + month;
+        }
+        if(day < 10) {
+            day = "0" + day;
+        }
+        return "" + year + "-" + month + "-" + day;
+    }
     angular.module('mod-query-edit')
-        .directive('queryEditDesc',function(formMaker){
+        .directive('queryEditDesc',function(formMaker,queryEditHttp){
             return {
                 link: function(){
 
@@ -13,14 +25,23 @@
                 },
                 controllerAs: 'queryEditTable',
                 controller: function($scope){
+                    var me = this;
                     this.fields = formMaker.getTableFliter().fields;
                     this.option = formMaker.getTableFliter().option;
-                    this.submit = function name(valid, result) {
+                    this.submit = function name(valid, result,page) {
                         if(valid) {
-                            console.info(result);
+                            var temp = {};
+                            temp.startTime = transformDate(result.startTime);
+                            temp.endTime = transformDate(result.endTime);
+                            temp.pageNum = page != null ? page : 1;
+                            temp.pageSize = 7;
+                            temp.desc = result.desc;
+                            queryEditHttp.queryQueue(temp).then(function(data){
+                                $scope.results = data;
+                                console.log(me.fields)
+                            })
                         }
                     }
-                    
                 	// $scope.dateFormat = "yyyy/MM/dd";
                     // $scope.endDate = new Date();
                 	// $scope.beginDate = new Date($scope.endDate.getTime() - 7 * 24 * 3600 * 1000);
@@ -46,12 +67,10 @@
                     // $scope.search = function(){
                     //     // 进行查询
                     // };
-                    $scope.tableTitles = [{title: "任务描述",alias: "desc"},{title: "开始时间",alias: "startTime"},{title: "结束时间",alias: "endTime"},{title: "提交用户",alias: "submitUser"},{title: "查询状态",alias: "status"},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},{title: "操作",optName: "查看日志",onclick: function(item){showLogs(item)}}];
-                    $scope.results =  {
-                        results: [{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},{desc: "11月差错",submitTime: "2015-11-30","submitUser": "周星星","status": "正在运行"},],
-                        pageAll: 100,
-                        pageTemp: 1
-                    };
+                    $scope.tableTitles = [{title: "任务描述",alias: "DESC"},{title: "开始时间",alias: "START_TIME"},{title: "结束时间",alias: "END_TIME"},{title: "提交用户",alias: "OPR_USER"},{title: "查询状态",alias: "TASK_ST"},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},{title: "操作",optName: "查看日志",onclick: function(item){showLogs(item)}}];
+                    $scope.pageChanged = function(){
+                        me.submit(true,me.result,$scope.results['page']);
+                    }
                     $scope.classes = ["active","success"];
                 },
                 templateUrl: "modules/query-edit/query-edit-desc/main.html",

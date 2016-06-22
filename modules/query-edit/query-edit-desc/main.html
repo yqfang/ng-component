@@ -49,13 +49,13 @@
 					<tr>
 						<th ng-repeat="item in tableTitles">{{item.title}}</th>
 					</tr>
-					<tr ng-repeat="item in results.results track by $index" ng-if="$index < 7" class="{{classes[$index % (classes.length)]}}" >
+					<tr ng-repeat="item in results.data track by $index" ng-if="$index < 7" class="{{classes[$index % (classes.length)]}}" >
 						<td ng-repeat="temp in tableTitles" ng-class="{'myactive': !item[temp.alias]}" ng-click="temp.onclick ? temp.onclick(item,temp) : null">{{item[temp.alias] ? item[temp.alias] : (temp.optionAlias != 'download' ? temp.optName : '')}}<a ng-if="temp.optionAlias=='download'" download href="{{item.href}}" >{{temp.optName}}</a></td>
 					</tr>
 				</table>
 			</div>
 			<div class="query-exec-result-page">
-				<div pagination total-items="results.pageAll" items-per-page="7" ng-model="results.pageTemp" max-size="5" class="pagination-sm" boundary-links="true" ng-change="pageChanged()" rotate="false" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页"></div>
+				<div pagination total-items="results.total" items-per-page="7" ng-model="results.page" max-size="5" class="pagination-sm" boundary-links="true" ng-change="pageChanged()" rotate="false" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页"></div>
 			</div>
 		</div>
 	</div>
