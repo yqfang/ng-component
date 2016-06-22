@@ -61,25 +61,25 @@ var maya = {};
 				})
 				.state('queryFavor', {
 					url: '/query/favor',
-					template: '<div>我的查询</div>',
+					template: '<div>我的收藏</div>',
 					resolve: {
 						currentModule: function($rootScope) {
 							return $rootScope.app.currentModule = '<span up-icon="fa-folder-open-o">我的收藏</span>';
 						}		
 					}
 				})
-				.state('configRule', {
-					url: '/config/rule',
-					template: '<div>业务规则管理</div>',
+				.state('configAuth', {
+					url: '/config/auth',
+					template: '<div>权限管理</div>',
 					resolve: {
 						currentModule: function($rootScope) {
 							return $rootScope.app.currentModule = '<span up-icon="fa-key">权限管理</span>';
 						}		
 					}
 				})
-				.state('configAuth', {
-					url: '/config/auth',
-					template: '<div>用户权限管理</div>',
+				.state('configRule', {
+					url: '/config/rule',
+					template: '<div>统计参数</div>',
 					resolve: {
 						currentModule: function($rootScope) {
 							return $rootScope.app.currentModule = '<span up-icon="fa-bar-chart">统计参数</span>';
