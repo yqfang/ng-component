@@ -175,6 +175,51 @@
                 $modalInstance.close();
             }
 	    })
+		.controller("queryEditLogCtrl", function($interval,$timeout,$http,$scope,$modalInstance, serviceId, path) {
+			var stopInterval;
+			$scope.preview = {};
+			function _getHiveInfo(serviceId, type, path){
+                        return $http({
+                            method: 'get',
+                            url: 'TornadoServlet',
+                            params: {
+                                action: 'getHiveInfo',
+                                serviceId: serviceId,
+                                type: type,
+                                filePath: path || ''
+                            }
+                        });
+            };
+			function _getLogSucc(res) {
+				debugger;
+				$scope.preview.content = res.content;
+				if(res.status != 'RN' && res.status != 'SR' && res.status != 'TR') {
+					if (angular.isDefined(stopInterval)) {
+						$interval.cancel(stopInterval);
+						stopInterval = undefined;
+					}
+				}
+			}
+			function _getLogFail(msg) {
+				if (angular.isDefined(stopInterval)) {
+					$interval.cancel(stopInterval);
+					stopInterval = undefined;
+				}
+				$scope.preview.content = '运行出错，请联系管理员！\n' + angular.toJson(msg);
+			}
+			
+			stopInterval = $interval(function(){
+				_getHiveInfo(serviceId, 1, path).then(_getLogSucc, _getLogFail);
+			}, 3000);
+			$scope.ok = function() {
+				$modalInstance.close();
+				if (angular.isDefined(stopInterval)) {
+                $interval.cancel(stopInterval);
+                stopInterval = undefined;
+            }
+			}
+
+		})
 	    .controller("queryEditStatistic",function($scope,data,$modalInstance,onOk,lists,$http,queryEditHttp,temp){
 	    	$scope.title = "统计维度选择";
 	    	$scope.data = data;

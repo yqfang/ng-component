@@ -1,6 +1,6 @@
 var maya = {};
 ;(function() {
-	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap','up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad','ui.codemirror']);
+	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap', 'up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad','ui.codemirror']);
 		app.run(function ($rootScope, $state, $stateParams) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
@@ -38,9 +38,9 @@ var maya = {};
 				]
 			});
 			datepickerConfig.showWeeks = false;
+			// datepickerPopupConfig.datepickerPopup = "yyyy-MM-dd";
 		})
-		app.config(function(datepickerConfig, $stateProvider, $urlRouterProvider) {
-			datepickerConfig.showWeeks = false;
+		app.config(function($stateProvider, $urlRouterProvider) {
 			$urlRouterProvider
 				.when('/', '/query/edit')
 				.otherwise('/query/edit');
