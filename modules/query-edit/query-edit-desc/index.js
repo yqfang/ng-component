@@ -32,39 +32,25 @@
                         startTime: new Date(),
                         endTime: new Date()
                     }
-                    function _getHiveInfo(serviceId, type, path){
-                        return $http({
-                            method: 'get',
-                            url: 'TornadoServlet',
-                            params: {
-                                action: 'getHiveInfo',
-                                serviceId: serviceId,
-                                type: type,
-                                filePath: path || ''
-                            }
-                        });
-                    };
+                    
                     this.downloadFile = function(path) {
-                        window.location.href = 'TornadoServlet?action=downloadFile' + '&path=' + path;
+                        window.location.href = '/edwweb/tornado/TornadoServlet?action=downloadFile' + '&path=' + path;
 			        }
                     function showLogs (params) {
                         $modal.open({
                           templateUrl: 'modules/query-edit/modal/log.html',
                           controller: 'queryEditLogCtrl',
                           resolve: {
-                              serviceId: params.AUTO_ID,
-                                   path: params.LOG_PATH
+                              params: function() {
+                                  return params;
+                              }
                           },
                           onOk: function() {
 
                         }
 
                     })}
-                        // _getHiveInfo(params.AUTO_ID, 1, params.LOG_PATH).then(function() {
-                        //     dialogs.notify('日志详情', log.summary);
-                        // }, function() {
-                        //     dialogs.error('警告', '查看日志错误');
-                        // });
+
                     this.submit = function name(valid, result,page) {
                         if(valid) {
                             var temp = {};
