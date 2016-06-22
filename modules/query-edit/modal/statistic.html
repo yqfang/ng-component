@@ -1,0 +1,75 @@
+<style>
+    .modal_wrapper {
+        color: black;
+    }
+    .modal_wrapper .uni-item {
+    
+    }
+    .modal_wrapper .modal-left {
+        width: 40%;
+        text-align: center;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        height: 400px;
+        overflow: hidden;
+        display: inline-block;
+    }
+    .modal_wrapper .modal-right {
+        width: 58%;
+        text-align: center;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        height: 400px;
+        overflow: hidden;
+        display: inline-block;
+    }
+    .modal_wrapper .modal-part-title{
+        height: 25px;
+        font-weight: 900;
+    }
+    .modal_wrapper .modal-part-content{
+        height: 360px;
+        overflow: auto;
+    }
+    .modal_wrapper .uni-card {
+        margin-top: 0;
+        margin-bottom:0;
+    }
+    .modal_wrapper .modal-left .uni-card .active {
+        background-color: #1da7dc;
+        color:white;
+    }
+    .modal_wrapper .modal-right .uni-card .active {
+        background-color: #3e5f9a;
+        color:white;
+    }
+</style>
+<div class="modal_wrapper">
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="modal-left">
+            <div class="modal-part-title">统计维度</div>
+            <div class="modal-part-content">
+                <div uni-card>
+                    <div uni-item ng-class="{'active': item.isChoosen}" ng-repeat="item in data" ng-click="choosenItemLeft(item)">
+                        {{item.paraNm}}
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="modal-right">
+            <div class="modal-part-title">配置选项</div>
+            <div class="modal-part-content">
+                <div uni-card>
+                    <div uni-item ng-class="{'active': item.isChoosen}" ng-repeat="item in tempLists" ng-click="choosenItemRight(item)">{{item.value}}</div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">确定</button>
+        <!-- <button class="btn btn-warning" ng-click="cancel()">取消</button> -->
+    </div>    
+</div>
