@@ -1,6 +1,6 @@
 var maya = {};
 ;(function() {
-	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap','up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad']);
+	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap','up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad','ui.codemirror']);
 		app.run(function ($rootScope, $state, $stateParams) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
@@ -8,16 +8,17 @@ var maya = {};
 					name: "中国银联参数统计平台",
 					menus: [
 						{
-							name: '<span up-icon="fa-camera-retro fa-lg" up-icon-prepend>统计分析</span>',
+							name: '<span up-icon="fa-camera-retro" up-icon-prepend>统计分析</span>',
 							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
 								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
 						},
 						{
-							name: '<span up-icon="fa-camera-retro fa-lg" up-icon-prepend>业务规则管理</span>',
+							name: '<span up-icon="fa-camera-retro" up-icon-prepend>业务规则管理</span>',
 							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="configAuth" href="#/config/auth" name="权限管理"/>',
 								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="configRule" href="#/config/rule" name="统计参数"/>']
 						}
-					]
+					],
+					currentModule: '<span up-icon="fa-camera-retro">查询编辑22</span>'
 				}
 		    })
 		app.config(function($ocLazyLoadProvider, datepickerConfig) {
@@ -52,7 +53,10 @@ var maya = {};
 					resolve: {
 						queryEdit: function($ocLazyLoad) {
 							return $ocLazyLoad.load(["queryEdit"])
-						}
+						},
+						currentModule: function() {
+							return '<span up-icon="fa-camera-retro">查询编辑</span>'
+						}		
 					}
 				})
 				.state('queryFavor', {

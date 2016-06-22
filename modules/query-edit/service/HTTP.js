@@ -19,6 +19,13 @@
                 });
                 return deferred.promise;
             };
+            http.queryQueue = function(params){
+                 var deferred = $q.defer();
+                $http.post("queryQueue",params).then(function(data){
+                     deferred.resolve(data.data);
+                })
+                return deferred.promise;
+            }
             return http;
         })
 

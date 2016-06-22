@@ -1,8 +1,9 @@
 (function () {
 
     angular.module('mod-query-edit')
-        .controller("queryEditCtrl", function(formMaker,queryEditHttp,$modal,$q) {
+        .controller("queryEditCtrl", function(formMaker,$rootScope, currentModule,queryEditHttp,$modal,$q) {
         	var me = this;
+			$rootScope.app.currentModule = currentModule;
             this.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
             this.sqlContent = "";
             this.lists = {
@@ -21,7 +22,8 @@
             };
             this.closeStatisticChooen = function(item){
             	item.isChoosen = false;
-            }
+            };
+
             function openModal (data){
             	if(!me.temp.tempItem) {
             		me.temp.tempItem = data[0] ? data[0] : null;
@@ -39,7 +41,6 @@
         				onOk: function() {
         					return function(){
         						var deferred = $q.defer();
-        						console.log(me.lists)
         						deferred.resolve();
         						return deferred.promise;
         					}
@@ -61,45 +62,87 @@
             		openModal(me.statisticData);
             	}
             }
-            function openChooseModal(data,id){
+            function openChooseModal(id){
             	$modal.open({
         			templateUrl: "modules/query-edit/modal/choosen.html",
         			controller: "queryEditChoosen",
         			resolve: {
-        				data: function(){
-        					return data;
-        				},
         				lists: function(){
         					return me.lists[id];
         				},
+                        id: function(){
+                            return id;
+                        },
         				onOk: function() {
         					return function(){
         						var deferred = $q.defer();
-        						console.log(me.lists)
         						deferred.resolve();
         						return deferred.promise;
         					}
         				},
-        				temp: function(){
-        					return me.temp;
-        				}
         			}
         		})
             }
-            this.store = {"2": null,"3":null};
             this.openService = function(paraId){
-            	if(!me.store["" + paraId]) {
+            	if(!me.lists["" + paraId]) {
             		queryEditHttp.getBuss(paraId).then(function(data){
-            			me.store["" + paraId] = data;
-            			openChooseModal(data,paraId+ "");
+            			me.lists["" + paraId] = data;
+            			openChooseModal(paraId+ "");
             		})
             	} else {
-            		openChooseModal(me.store["" + paraId],paraId+"");
+            		openChooseModal(paraId+"");
             	}
+            };
+
+            function openSearchModal(ifshow){
+                $modal.open({
+                    templateUrl: "modules/query-edit/modal/search.html",
+                    controller: "queryEditSearch",
+                    resolve: {  
+                        lists: me.lists,
+                        ifshowList: function(){
+                            return ifshow;
+                        },
+                        onOk: function(){
+                            return function(){
+
+                            }
+                        }
+                    }
+                })
+            }
+            this.search = function(){
+                openSearchModal(true);
+            };
+            this.highSearch = function(){
+                 openSearchModal(false);
+            };
+            this.newSearch = function(){
+
             }
 	    })
-	    .controller('queryEditChoosen',function($scope,lists){
+        .controller("queryEditSearch",function($scope,lists,$modalInstance,ifshowList){
+            $scope.lists = lists;
+            $scope.ifshowList = ifshowList;
+            if(ifshowList) {
+                $scope.title = "查询";
+            } else {
+                $scope.title = "新建查询";
+            }
+            $scope.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
+            $scope.sqlContent = "select * from qianzhixiang";
+        })
+	    .controller('queryEditChoosen',function($scope,lists,id,$modalInstance){
 	    	$scope.lists = lists;
+            $scope.choosenItem = function(item){
+                if(item) {
+                    item.isChoosen = !item.isChoosen;
+                }
+            }
+            $scope.title = (id == "2") ? "业务" : "指标";
+            $scope.ok = function(){
+                $modalInstance.close();
+            }
 	    })
 	    .controller("queryEditStatistic",function($scope,data,$modalInstance,onOk,lists,$http,queryEditHttp,temp){
 	    	$scope.title = "统计维度选择";

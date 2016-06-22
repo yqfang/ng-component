@@ -5,6 +5,9 @@
     <div transclude-to="site-menu">
         <up-list ng-repeat="menu in menus" name="menu.name" closable items="menu.items"></up-list>
     </div>
+    <div transclude-to="site-body-header">
+        <div bind-html-compile="app.currentModule"></div>
+    </div>
     <div transclude-to="site-body" ng-transclude>
     </div>
 </up-site>

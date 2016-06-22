@@ -61,12 +61,12 @@
                                 "placeholder": "描述"
                             },
                             {
-                                "name": "startDate",
+                                "name": "startTime",
                                 "type": "input:date",
                                 "label": "起始时间",
                             },
                             {
-                                "name": "endDate",
+                                "name": "endTime",
                                 "type": "input:date",
                                 "label": "结束时间",
                             },
@@ -76,7 +76,7 @@
                             }
                         ],
                         "option": {
-                            "formClass": "form-inline",
+                            "formClass": "form-inline query-edit--table-fliter",
                             "inputClass": "inline-control"
                         }
                     }
