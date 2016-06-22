@@ -61,11 +61,11 @@ var maya = {};
 				})
 				.state('queryFavor', {
 					url: '/query/favor',
-					template: '<div>我的收藏</div>',
+					templateUrl: 'modules/query-favor/main.html',
 					resolve: {
 						currentModule: function($rootScope) {
 							return $rootScope.app.currentModule = '<span up-icon="fa-folder-open-o">我的收藏</span>';
-						}		
+						},
 					}
 				})
 				.state('configAuth', {
@@ -79,7 +79,7 @@ var maya = {};
 				})
 				.state('configRule', {
 					url: '/config/rule',
-					template: '<div>统计参数</div>',
+					templateUrl: 'modules/config-rule/main.html',
 					resolve: {
 						currentModule: function($rootScope) {
 							return $rootScope.app.currentModule = '<span up-icon="fa-bar-chart">统计参数</span>';
@@ -102,7 +102,6 @@ var maya = {};
 		                                str.push(i + "=" + obj[i]);
 		                            }
 								};
-		                        console.log(str);
 								return str.join("&");
 			           		};
 		            	}

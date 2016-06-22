@@ -90,6 +90,26 @@
                             "inputClass": "inline-control"
                         }
                     }
+                },
+                getCalendar: function(){
+                    return {
+                        "fields": [
+                            {
+                                "name": "startTime",
+                                "type": "input:date",
+                                "label": "清算时间",
+                            },
+                            {
+                                "name": "endTime",
+                                "type": "input:date",
+                                "label": "结束时间",
+                            }
+                        ],
+                        "option": {
+                            "formClass": "form-inline query-edit--table-fliter",
+                            // "inputClass": "inline-control"
+                        }
+                    }
                 }
             }
         })

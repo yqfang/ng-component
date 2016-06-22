@@ -15,7 +15,15 @@
         return "" + year + "-" + month + "-" + day;
     }
     angular.module('mod-query-edit')
-        .directive('queryEditDesc',function(formMaker,queryEditHttp){
+        .service('queryEditDescService',function(){
+            var service = {
+                result: {},
+                transformDate: transformDate,
+                scope: null,
+            };
+            return service;
+        })
+        .directive('queryEditDesc',function(formMaker,queryEditHttp,queryEditDescService){
             return {
                 link: function(){
 
@@ -26,6 +34,8 @@
                 controllerAs: 'queryEditTable',
                 controller: function($scope, $http, $modal){
                     var me = this;
+                    queryEditDescService.scope = $scope;
+                    me.queryEditDescService = queryEditDescService;
                     this.fields = formMaker.getTableFliter().fields;
                     this.option = formMaker.getTableFliter().option;
                     this.result = {
@@ -54,17 +64,17 @@
                     this.submit = function name(valid, result,page) {
                         if(valid) {
                             var temp = {};
-                            temp.startTime = transformDate(result.startTime);
-                            temp.endTime = transformDate(result.endTime);
+                            temp.startTime = transformDate(queryEditDescService.result.startTime);
+                            temp.endTime = transformDate(queryEditDescService.result.endTime);
                             temp.pageNum = page != null ? page : 1;
                             temp.pageSize = 7;
-                            temp.desc = result.desc;
+                            temp.desc = queryEditDescService.result.desc == null ? "" : queryEditDescService.result.desc;
                             queryEditHttp.queryQueue(temp).then(function(data){
                                 $scope.results = data;
-                                console.log(me.fields)
                             })
                         }
                     }
+                    this.submit(true, queryEditDescService.result,1);
                 	// $scope.dateFormat = "yyyy/MM/dd";
                     // $scope.endDate = new Date();
                 	// $scope.beginDate = new Date($scope.endDate.getTime() - 7 * 24 * 3600 * 1000);

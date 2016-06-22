@@ -1,0 +1,59 @@
+<style>
+	.config-rule-modal-body {
+		padding:10px;
+	}
+</style>
+<div style="color: black;">
+	<div class="modal-header">
+	    <h3 class="modal-title">{{title}}</h3>
+	</div>
+	<div class="config-rule-modal-body">
+		<form class="form-horizontal">
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">名称</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" ng-disabled="!isAdd" id="inputEmail3" value="{{item.bussName}}" ng-model="item.bussName" >
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">ID</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" ng-disabled="!isAdd" id="inputEmail3" value="{{item.bussId}}" ng-model="item.bussId" >
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">类型</label>
+		    <div class="col-sm-10">
+		      <select ng-model="item.bussType" ng-disabled="!isAdd" class="form-control">
+				  <option value="1">统计维度</option>
+				  <option value="2">业务</option>
+				  <option value="3">统计指标</option>
+			  </select>
+	<!-- 	      <input type="text" class="form-control" id="inputEmail3" value="{{item.bussType}}" ng-model="item.bussType" > -->
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">joinRule</label>
+		    <div class="col-sm-10">
+		     <textarea class="form-control" rows="3" value="{{item.joinRule}}" ng-model="item.joinRule"></textarea>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">showRule</label>
+		    <div class="col-sm-10">
+		    	<textarea class="form-control" rows="3" value="{{item.showRule}}" ng-model="item.showRule"></textarea>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">sqlRule</label>
+		    <div class="col-sm-10">
+		    	<textarea class="form-control" rows="3" value="{{item.sqlRule}}" ng-model="item.sqlRule"></textarea>
+		    </div>
+		  </div>
+		</form>
+	</div>
+	<div class="modal-footer">
+	    <button class="btn btn-primary" ng-click="ok(item,type)">确定</button>
+	    <button class="btn btn-warning" ng-click="cancel()">取消</button>
+	</div>
+</div>
