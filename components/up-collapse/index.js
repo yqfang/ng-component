@@ -10,8 +10,8 @@
                 link: function(scope, ele, attr){
                     ele.on('click', function() {
                         ele.closest(".up-site--main").toggleClass('closed');
+                        ele.find(".fa-open").toggleClass('fa-rotate-180');
                     })
-
                 }
             }
         })

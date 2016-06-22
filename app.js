@@ -8,17 +8,17 @@ var maya = {};
 					name: "中国银联参数统计平台",
 					menus: [
 						{
-							name: '<span up-icon="fa-camera-retro" up-icon-prepend>统计分析</span>',
-							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
-								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
+							name: '<span up-icon="fa-caret-down" up-icon-prepend>统计分析</span>',
+							items: ['<up-link up-icon="fa-pencil-square-o" up-icon-prepend active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
+								'<up-link up-icon="fa-folder-open-o" up-icon-prepend active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
 						},
 						{
-							name: '<span up-icon="fa-camera-retro" up-icon-prepend>业务规则管理</span>',
-							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="configAuth" href="#/config/auth" name="权限管理"/>',
-								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="configRule" href="#/config/rule" name="统计参数"/>']
+							name: '<span up-icon="fa fa-caret-down" up-icon-prepend>业务规则管理</span>',
+							items: ['<up-link up-icon="fa-key" up-icon-prepend active-state="configAuth" href="#/config/auth" name="权限管理"/>',
+								'<up-link up-icon="fa-bar-chart" up-icon-prepend active-state="configRule" href="#/config/rule" name="统计参数"/>']
 						}
 					],
-					currentModule: '<span up-icon="fa-camera-retro">查询编辑22</span>'
+					currentModule: '<span up-icon="fa-pencil-square-o">查询编辑</span>'
 				}
 		    })
 		app.config(function($ocLazyLoadProvider, datepickerConfig) {
@@ -55,7 +55,7 @@ var maya = {};
 							return $ocLazyLoad.load(["queryEdit"])
 						},
 						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">查询编辑</span>';
+							return $rootScope.app.currentModule = '<span up-icon="fa-pencil-square-o">查询编辑</span>';
 						}		
 					}
 				})
@@ -64,7 +64,7 @@ var maya = {};
 					template: '<div>我的查询</div>',
 					resolve: {
 						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">我的收藏</span>';
+							return $rootScope.app.currentModule = '<span up-icon="fa-folder-open-o">我的收藏</span>';
 						}		
 					}
 				})
@@ -73,7 +73,7 @@ var maya = {};
 					template: '<div>业务规则管理</div>',
 					resolve: {
 						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">权限管理</span>';
+							return $rootScope.app.currentModule = '<span up-icon="fa-key">权限管理</span>';
 						}		
 					}
 				})
@@ -82,7 +82,7 @@ var maya = {};
 					template: '<div>用户权限管理</div>',
 					resolve: {
 						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">统计参数</span>';
+							return $rootScope.app.currentModule = '<span up-icon="fa-bar-chart">统计参数</span>';
 						}		
 					}
 				})
