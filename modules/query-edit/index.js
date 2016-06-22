@@ -32,8 +32,7 @@
 		    return out;
 		  };
 		})
-        .controller("queryEditCtrl", function(formMaker, $rootScope, currentModule) {
-						$rootScope.app.currentModule = currentModule;
+        .controller("queryEditCtrl", function(formMaker, $rootScope) {
             this.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
             this.sqlContent = "";
             this.buttons = [

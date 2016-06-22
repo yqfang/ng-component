@@ -10,7 +10,7 @@ var maya = {};
 						{
 							name: '<span up-icon="fa-camera-retro" up-icon-prepend>统计分析</span>',
 							items: ['<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
-								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryFavor" href="#/query/favor" name="我的查询"/>']
+								'<up-link up-icon="fa-camera-retro" up-icon-prepend active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
 						},
 						{
 							name: '<span up-icon="fa-camera-retro" up-icon-prepend>业务规则管理</span>',
@@ -53,22 +53,37 @@ var maya = {};
 						queryEdit: function($ocLazyLoad) {
 							return $ocLazyLoad.load(["queryEdit"])
 						},
-						currentModule: function() {
-							return '<span up-icon="fa-camera-retro">查询编辑</span>'
+						currentModule: function($rootScope) {
+							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">查询编辑</span>';
 						}		
 					}
 				})
 				.state('queryFavor', {
 					url: '/query/favor',
-					template: '<div>我的查询</div>'
+					template: '<div>我的查询</div>',
+					resolve: {
+						currentModule: function($rootScope) {
+							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">我的收藏</span>';
+						}		
+					}
 				})
 				.state('configRule', {
 					url: '/config/rule',
-					template: '<div>业务规则管理</div>'
+					template: '<div>业务规则管理</div>',
+					resolve: {
+						currentModule: function($rootScope) {
+							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">权限管理</span>';
+						}		
+					}
 				})
 				.state('configAuth', {
 					url: '/config/auth',
-					template: '<div>用户权限管理</div>'
+					template: '<div>用户权限管理</div>',
+					resolve: {
+						currentModule: function($rootScope) {
+							return $rootScope.app.currentModule = '<span up-icon="fa-camera-retro">统计参数</span>';
+						}		
+					}
 				})
 		})
 })(maya)

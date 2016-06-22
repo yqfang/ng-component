@@ -39,11 +39,13 @@
 <script type="text/javascript" src="node_modules/angular-smart-table/dist/smart-table.min.js"></script>
 <!--up-component-->
 <script type="text/javascript" src="components/index.js"></script>
+<script type="text/javascript" src="components/up-collapse/index.js"></script>
 <script type="text/javascript" src="components/up-util/index.js"></script>
 <script type="text/javascript" src="components/up-site/index.js"></script>
 <script type="text/javascript" src="components/up-list/index.js"></script>
 <script type="text/javascript" src="components/up-icon/index.js"></script>
 <script type="text/javascript" src="components/up-link/index.js"></script>
+
 <script type="text/javascript" src="components/up-app/index.js"></script>
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="components/up-form/upForm.js"></script>
@@ -109,6 +111,15 @@
 		border-style: solid;
 		border-width: 0 1px 2px;
 	}
+	.up-site--main.closed .up-site--menu {
+		width: 70px;
+	}
+	.up-site--main.closed .up-site--body {
+		left: 70px
+	}
+	.up-site--main.closed .up-site--menu .menu-title {
+		display: none;
+	}
 	.up-site--menu .list-title{
 		cursor: pointer;
 		text-shadow: 0 1px 0 #ffffff;
@@ -116,12 +127,13 @@
 		font-weight: bold;
 		position: relative;
 		display: block;
-		padding: 10px 11px;
 		color: #3b6c8e;
 		border-bottom: 1px solid #eee;
 	}
+	.up-site--menu i {
+		padding: 10px 11px;
+	}
 	.up-site--menu {
-		margin-left: 5px;
 		width:230px;
 		z-index: 102;
 		overflow-x: hidden;
@@ -159,9 +171,8 @@
 	.up-site--menu a {
 		position: relative;
 		display: block;
-		padding: 10px 10px;
 		color: #737373;;
-		border-left: 2px solid transparent;
+		border-right: 2px solid transparent;
 	}
 	.up-site--menu .active a {
 		border-color: #427fed;
@@ -182,7 +193,7 @@
 	}
 	.up-site--body-header {
 		font-size: 20px;
-		padding: 15px 0 15px 8px;
+		padding: 5px 0 12px 5px;
 		margin-left: 10px;
 		margin-bottom: 15px;
 		border-bottom: 1px solid #ccc;
@@ -200,9 +211,6 @@
 		font-weight: bold;
 		color: #3b6c8e;
 		text-shadow: 0 1px 0 #ffffff;
-		height: 35px;
-		line-height: 35px;
-		padding-left: 10px;
 	}
 </style>
 
