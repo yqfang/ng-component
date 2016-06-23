@@ -10,9 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "angular-smart-table": "^2.1.8",
-    "oclazyload": "^1.0.9",
     "angular-ui-codemirror": "^0.3.0",
-    "codemirror": "^5.14.2"
+    "codemirror": "^5.14.2",
+    "oclazyload": "^1.0.9"
   },
   "devDependencies": {
     "bootstrap": "^3.3.6",

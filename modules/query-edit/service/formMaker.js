@@ -58,14 +58,17 @@
                                 "name": "desc",
                                 "type": "input",
                                 "label": "描述",
-                                "placeholder": "描述"
+                                "placeholder": "描述",
+                                "style": {
+                                    "width": "145px"
+                                }
                             },
                             {
                                 "name": "startTime",
                                 "type": "input:date",
                                 "label": "起始时间",
                                 "style": {
-                                    "width": "110px"
+                                    "width": "105px"
                                 }
                                 
                             },
@@ -74,7 +77,7 @@
                                 "type": "input:date",
                                 "label": "结束时间",
                                 "style": {
-                                    "width": "110px"
+                                    "width": "105px"
                                 }
                             },
                             {

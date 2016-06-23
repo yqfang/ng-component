@@ -32,12 +32,35 @@
 
                 },
                 controllerAs: 'queryEditTable',
-                controller: function($scope){
+                controller: function($scope, $http, $modal){
                     var me = this;
                     queryEditDescService.scope = $scope;
                     me.queryEditDescService = queryEditDescService;
                     this.fields = formMaker.getTableFliter().fields;
                     this.option = formMaker.getTableFliter().option;
+                    this.result = {
+                        startTime: new Date(),
+                        endTime: new Date()
+                    }
+                    
+                    this.downloadFile = function(path) {
+                        window.location.href = '/edwweb/tornado/TornadoServlet?action=downloadFile' + '&path=' + path;
+			        }
+                    function showLogs (params) {
+                        $modal.open({
+                          templateUrl: 'modules/query-edit/modal/log.html',
+                          controller: 'queryEditLogCtrl',
+                          resolve: {
+                              params: function() {
+                                  return params;
+                              }
+                          },
+                          onOk: function() {
+
+                        }
+
+                    })}
+
                     this.submit = function name(valid, result,page) {
                         if(valid) {
                             var temp = {};
