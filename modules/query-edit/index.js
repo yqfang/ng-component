@@ -272,7 +272,7 @@
 				}
 				$scope.preview.content = '运行出错，请联系管理员！\n';
 			}
-			
+			_getHiveInfo(params.AUTO_ID, 1, logPath).then(_getLogSucc, _getLogFail);
 			stopInterval = $interval(function(){
 				_getHiveInfo(params.AUTO_ID, 1, logPath).then(_getLogSucc, _getLogFail);
 			}, 3000);
