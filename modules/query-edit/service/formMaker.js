@@ -82,7 +82,7 @@
                             },
                             {
                                 "type": "input:submit",
-                                "value": "查询"
+                                "value": "查询",
                             }
                         ],
                         "option": {
