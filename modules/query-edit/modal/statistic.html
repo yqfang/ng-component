@@ -2,6 +2,14 @@
     .modal_wrapper {
         color: black;
     }
+    .modal_wrapper .uni-icon:hover {
+        cursor: pointer;
+    }
+    .modal_wrapper .uni-icon:before{
+        color: #fb770f;
+        margin-right: 5px;
+        margin-left: 3px;
+    }
     .modal_wrapper .uni-item {
     
     }
@@ -46,7 +54,6 @@
     }
     .modal_wrapper .uni-choose-span:hover {
         background-color: #ffb039;
-        cursor: pointer;
     }
     .modal_wrapper .uni-modal-content {
         width: 35%;
@@ -112,8 +119,8 @@
             <hr>
             <div class="uni-choose-result">
                 <div ng-repeat="value in lists">
-                    <h4 ng-if="statisticLists[value.item.paraId] > 0">{{value.item.paraNm}} <span class="fa fa-car"></span></h4>
-                    <span class="uni-choose-span" ng-repeat="item in value.data" ng-if="item.isChoosen">{{item.value}}<span class="fa fa"></span></span>
+                    <h4 ng-if="statisticLists[value.item.paraId] > 0">{{value.item.paraNm}}</h4>
+                        <span class="uni-choose-span" title="{{item.value}}" ng-repeat="item in value.data" ng-if="item.isChoosen">{{item.value}}</span>
                 </div>
             </div>
         </div>

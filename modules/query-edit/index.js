@@ -176,6 +176,7 @@
                     "2": null,
                     "3": null
                 };
+                me.statisticLists = {};
                 me.desc = "";
             }
 	    })

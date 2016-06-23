@@ -4,12 +4,12 @@
         color: white;
     }
 </style>
-<div class="modal_wrapper">
+<div class="modal_wrapper" modal-resize modal-resize-width="30%" modal-resize-height="80%">
     <div class="modal-header" style="color: black;">
         <h3 class="modal-title">{{title}}</h3>
     </div>
     <div class="modal-body" style="color: black;max-height: 300px;overflow: auto;">
-        <div uni-card>
+        <div uni-card style="text-align: center;">
             <div uni-item class="edit-service" ng-class="{'active': item.isChoosen}" ng-repeat="item in lists" ng-click="choosenItem(item)">
                 {{item.paraNm}}
             </div>
