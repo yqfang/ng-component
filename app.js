@@ -14,7 +14,8 @@ var maya = {};
 						},
 						{
 							name: '<span up-icon="fa fa-caret-down">业务规则管理</span>',
-							items: ['<up-link up-icon="fa-key" active-state="configAuth" href="#/config/auth" name="权限管理"/>',
+							items: [
+							// '<up-link up-icon="fa-key" active-state="configAuth" href="#/config/auth" name="权限管理"/>',
 								'<up-link up-icon="fa-bar-chart" active-state="configRule" href="#/config/rule" name="统计参数"/>']
 						}
 					],
