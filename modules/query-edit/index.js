@@ -250,6 +250,13 @@
                 $modalInstance.close();
             }
 	    })
+        .controller("showSqlCtrl", function($scope, $modalInstance, params) {
+            $scope.sql = params.SQL_DESC;
+            $scope.ok = function() {
+				$modalInstance.close();
+
+			}
+        })
 		.controller("queryEditLogCtrl", function($interval,$timeout,$http,$scope,$modalInstance, params) {
 			var stopInterval;
 			var logPath = params.LOG_PATH;

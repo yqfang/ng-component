@@ -103,8 +103,20 @@
                     // $scope.search = function(){
                     //     // 进行查询
                     // };
-                    function showSql(item){
-                        alert('ok')
+                    function showSql(params){
+                            $modal.open({
+                            templateUrl: 'modules/query-edit/modal/sql.html',
+                            controller: 'showSqlCtrl',
+                            resolve: {
+                                params: function() {
+                                    return params;
+                                }
+                            },
+                            onOk: function() {
+
+                            }
+
+                        })
                     }
                     $scope.tableTitles = [{title: "任务描述",alias: "DESC"},{title: "开始时间",alias: "START_TIME"},{title: "结束时间",alias: "END_TIME"},{title: "提交用户",alias: "OPR_USER"},{title: "查询状态",alias: "TASK_ST"},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},
                     {
