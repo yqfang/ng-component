@@ -69,34 +69,34 @@
               <div class="form-group" style="margin:0;">
                 <label for="inputEmail3" class="col-sm-3 control-label">维度</label>
                 <div class="col-sm-9" style="padding-left:5px;">
-                  <button class="btn btn-primary" ng-click="queryEdit.openStatistic()">配置</button>
-                  <div class="uni-select">
+                  <button class="btn btn-primary btn-sm" ng-click="queryEdit.openStatistic()" style="position: relative;top: -5px;">配置</button>
+                  <!-- <div class="uni-select">
                        <span ng-repeat="(key,value) in queryEdit.lists['1']" class="span-item-wrapper" ng-if="queryEdit.statisticLists[value.item.paraId] > 0">{{value.item.paraNm + ":"}}
                         <span ng-repeat="item in value.data" class="span-item" ng-if="item.isChoosen">{{item.value}} <span class="fa fa-close" ng-click="queryEdit.closeStatisticChooen(item)"></span></span>
                        <br/></span>
-                    </div>
+                    </div> -->
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">业务</label>
                 <div class="col-sm-9" style="padding-left:5px;">
-                  <button class="btn btn-primary" ng-click="queryEdit.openService('2')">配置</button>
-                    <div class="uni-select">
+                  <button class="btn btn-primary btn-sm" ng-click="queryEdit.openService('2')"  style="position: relative;top: -5px;">配置</button>
+<!--                     <div class="uni-select">
                        <span class="span-item-wrapper">
                          <span  class="span-item" ng-repeat="item in queryEdit.lists['2']" ng-if="item.isChoosen">{{item.paraNm}}<span class="fa fa-close" ng-click="queryEdit.closeStatisticChooen(item)"></span></span>
                        </span>
-                    </div>
+                    </div> -->
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">指标</label>
                 <div class="col-sm-9" style="padding-left:5px;">
-                    <button class="btn btn-primary" ng-click="queryEdit.openService('3')">配置</button>
-                    <div class="uni-select">
+                    <button class="btn btn-primary btn-sm" ng-click="queryEdit.openService('3')"  style="position: relative;top: -5px;">配置</button>
+                    <!-- <div class="uni-select">
                        <span class="span-item-wrapper">
                          <span  class="span-item" ng-repeat="item in queryEdit.lists['3']" ng-if="item.isChoosen">{{item.paraNm}}<span class="fa fa-close" ng-click="queryEdit.closeStatisticChooen(item)"></span></span>
                        </span>
-                    </div>
+                    </div> -->
                 </div>
               </div>
             </form>

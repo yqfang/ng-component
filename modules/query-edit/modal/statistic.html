@@ -6,7 +6,7 @@
     
     }
     .modal_wrapper .modal-left {
-        width: 40%;
+        width: 26%;
         text-align: center;
         padding-top: 3px;
         padding-bottom: 3px;
@@ -15,7 +15,41 @@
         display: inline-block;
     }
     .modal_wrapper .modal-right {
-        width: 58%;
+        width: 37%;
+        text-align: center;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        height: 400px;
+        overflow: hidden;
+        display: inline-block;
+    }
+    .modal_wrapper .uni-choose-result {
+        padding-left: 30px;
+        height: 360px;
+        overflow: auto;
+        width:100%;
+        padding-bottom: 100px;
+    }
+    .modal_wrapper .uni-choose-span {
+        display: inline-block;
+        background-color: #f3c580;
+        color: white;
+        min-width: 60px;
+        max-width: 120px;
+        text-align: center;
+        padding: 3px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        white-space: nowrap;
+        margin: 0px 3px;
+    }
+    .modal_wrapper .uni-choose-span:hover {
+        background-color: #ffb039;
+        cursor: pointer;
+    }
+    .modal_wrapper .uni-modal-content {
+        width: 35%;
         text-align: center;
         padding-top: 3px;
         padding-bottom: 3px;
@@ -46,6 +80,9 @@
     .uni-item.has-choosen {
         background-color: #d3e7ef;
     }
+    h3{
+        margin-top: 0;
+    }
 </style>
 <div class="modal_wrapper">
     <div class="modal-header">
@@ -70,6 +107,17 @@
                 </div>
             </div> 
         </div>
+        <div class="uni-modal-content" style="text-align: left;">
+            <div class="modal-part-title"><h3>选择结果</h3></div>
+            <hr>
+            <div class="uni-choose-result">
+                <div ng-repeat="value in lists">
+                    <h4 ng-if="statisticLists[value.item.paraId] > 0">{{value.item.paraNm}} <span class="fa fa-car"></span></h4>
+                    <span class="uni-choose-span" ng-repeat="item in value.data" ng-if="item.isChoosen">{{item.value}}<span class="fa fa"></span></span>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">确定</button>
