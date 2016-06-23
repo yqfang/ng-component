@@ -50,7 +50,14 @@
 						<th ng-repeat="item in tableTitles">{{item.title}}</th>
 					</tr>
 					<tr ng-repeat="item in results.data track by $index" ng-if="$index < 7" class="{{classes[$index % (classes.length)]}}" >
-						<td ng-repeat="temp in tableTitles" ng-class="{'myactive': !item[temp.alias]}" ng-click="temp.onclick ? temp.onclick(item,temp) : null">{{item[temp.alias] ? item[temp.alias] : (temp.optionAlias != 'download' ? temp.optName : '')}}<a ng-if="temp.optionAlias=='download'"  ng-click="queryEditTable.downloadFile(item.STORE_PATH)"  >{{temp.optName}}</a></td>
+						<td ng-repeat="temp in tableTitles" ng-class="{'myactive': !item[temp.alias]}" ng-click="temp.onclick && temp.optionAlias != 'showlogs' ? temp.onclick(item,temp) : null" >
+						<span ng-if="temp.optionAlias != 'showlogs'">
+							{{item[temp.alias] ? item[temp.alias] : (temp.optionAlias != 'download' ? temp.optName : '')}}
+						</span>
+						<a ng-if="temp.optionAlias == 'showlogs'" class="hand opt" ng-repeat="opt in temp.opts" ng-click="opt.click(item)">
+							{{opt.optName}}
+						</a>
+						<a ng-if="temp.optionAlias=='download'" class="hand" ng-click="queryEditTable.downloadFile(item.STORE_PATH)"  >{{temp.optName}}</a></td>
 					</tr>
 				</table>
 			</div>
