@@ -103,7 +103,15 @@
                     // $scope.search = function(){
                     //     // 进行查询
                     // };
-                    $scope.tableTitles = [{title: "任务描述",alias: "DESC"},{title: "开始时间",alias: "START_TIME"},{title: "结束时间",alias: "END_TIME"},{title: "提交用户",alias: "OPR_USER"},{title: "查询状态",alias: "TASK_ST"},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},{title: "操作",optName: "查看日志",onclick: function(item){showLogs(item)}}];
+                    function showSql(item){
+                        alert('ok')
+                    }
+                    $scope.tableTitles = [{title: "任务描述",alias: "DESC"},{title: "开始时间",alias: "START_TIME"},{title: "结束时间",alias: "END_TIME"},{title: "提交用户",alias: "OPR_USER"},{title: "查询状态",alias: "TASK_ST"},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},
+                    {
+                        title: "操作",optName: "日志",optionAlias: "showlogs",
+                        opts: [
+                        {optName: "日志",click: function(item){showLogs(item)}},
+                        {optName: "SQL",click: function(item){showSql(item)}}]}];
                     $scope.pageChanged = function(){
                         me.submit(true,me.result,$scope.results['page']);
                     }

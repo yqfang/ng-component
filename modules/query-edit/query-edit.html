@@ -71,7 +71,7 @@
                 <div class="col-sm-9" style="padding-left:5px;">
                   <button class="btn btn-primary" ng-click="queryEdit.openStatistic()">配置</button>
                   <div class="uni-select">
-                       <span ng-repeat="(key,value) in queryEdit.lists['1']" class="span-item-wrapper">{{value.item.paraNm + ":"}}
+                       <span ng-repeat="(key,value) in queryEdit.lists['1']" class="span-item-wrapper" ng-if="queryEdit.statisticLists[value.item.paraId] > 0">{{value.item.paraNm + ":"}}
                         <span ng-repeat="item in value.data" class="span-item" ng-if="item.isChoosen">{{item.value}} <span class="fa fa-close" ng-click="queryEdit.closeStatisticChooen(item)"></span></span>
                        <br/></span>
                     </div>

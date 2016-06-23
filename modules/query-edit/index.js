@@ -11,6 +11,7 @@
             	"2": null,
             	"3": null
             };
+            this.statisticLists = {};
             queryEditDescService.result.endTime = new Date();
             queryEditDescService.result.startTime = new Date(queryEditDescService.result.endTime.getTime() - 7 * 24 * 3600 * 1000);
             this.statisticData = null;
@@ -23,6 +24,12 @@
             };
             this.closeStatisticChooen = function(item){
             	item.isChoosen = false;
+               if(me.statisticLists[item.parentItem.paraId]) {
+                me.statisticLists[item.parentItem.paraId]--;
+                if(me.statisticLists[item.parentItem.paraId] <= 0) {
+                    me.statisticLists[item.parentItem.paraId] = 0;
+                }
+               }
             };
             this.beginTime = null;
             this.beginOpened = true;
@@ -46,6 +53,9 @@
         				lists: function(){
         					return me.lists["1"];
         				},
+                        statisticLists: function(){
+                            return me.statisticLists;
+                        },
         				onOk: function() {
         					return function(){
         						var deferred = $q.defer();
@@ -118,6 +128,9 @@
 
                             }
                         },
+                        statisticLists: function(){
+                            return me.statisticLists;
+                        },
                         parent: function(){
                             return me;
                         },
@@ -166,10 +179,11 @@
                 me.desc = "";
             }
 	    })
-        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content){
+        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists){
             $scope.lists = lists;//getCalendar
             var me = this;
             $scope.ifshow = ifshow;
+            $scope.statisticLists = statisticLists;
             if(ifshow) {
                 $scope.title = "查询";
             } else {
@@ -285,13 +299,18 @@
 			}
 
 		})
-	    .controller("queryEditStatistic",function($scope,data,$modalInstance,onOk,lists,$http,queryEditHttp,temp){
+	    .controller("queryEditStatistic",function($scope,data,$modalInstance,onOk,lists,$http,queryEditHttp,temp, statisticLists){
 	    	$scope.title = "统计维度选择";
 	    	$scope.data = data;
 	    	$scope.lists = lists;
 	    	$scope.tempLists = null;
+            // 数组对象，作用和lists类似
+            $scope.statisticLists = statisticLists;
 	    	$scope.choosenItemLeft = function(item){
 	    		if(item) {
+                    if(!item.hasChoosen) {
+                        item.hasChoosen = true;
+                    }
 	    			if(temp.tempItem != item ) {
 	    				temp.tempItem.isChoosen = false;
 	    				temp.tempItem = item;
@@ -299,8 +318,14 @@
 	    			} else {
 	    				item.isChoosen = true;
 	    			}
+                    // 判断当前选中的这个item是否存在过
+                    if(!$scope.statisticLists[item.paraId]) {
+                        $scope.statisticLists[item.paraId] = 0;
+                    };
 	    			if(!$scope.lists[item.paraId]) {
+                        // 根据左边的选择获取对应的信息并展示在右边
 	    				queryEditHttp.getDimission(item.paraId).then(function(data){
+                            //lists 存储的是选择过的
 		    				$scope.lists[item.paraId] = {
 		    					item: item,
 		    					data: data
@@ -315,7 +340,21 @@
 			$scope.choosenItemLeft(temp.tempItem);
 			$scope.choosenItemRight = function(item){
 				if(item) {
+                    if(!item.parentItem) {
+                        item.parentItem = temp.tempItem;
+                    }
 					item.isChoosen = !item.isChoosen;
+                    if(!$scope.statisticLists[temp.tempItem.paraId]) {
+                        $scope.statisticLists[temp.tempItem.paraId] = 0;
+                    };
+                    if(item.isChoosen) {
+                        $scope.statisticLists[temp.tempItem.paraId]++;
+                    } else {
+                        $scope.statisticLists[temp.tempItem.paraId]--;
+                        if($scope.statisticLists[temp.tempItem.paraId] <= 0) {
+                            $scope.statisticLists[temp.tempItem.paraId] = 0;
+                        }
+                    }
 				}
 			}
 			$scope.ok = function(item,type){

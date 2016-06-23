@@ -43,6 +43,9 @@
         background-color: #3e5f9a;
         color:white;
     }
+    .uni-item.has-choosen {
+        background-color: #d3e7ef;
+    }
 </style>
 <div class="modal_wrapper">
     <div class="modal-header">
@@ -53,7 +56,7 @@
             <div class="modal-part-title">统计维度</div>
             <div class="modal-part-content">
                 <div uni-card>
-                    <div uni-item ng-class="{'active': item.isChoosen}" ng-repeat="item in data" ng-click="choosenItemLeft(item)">
+                    <div uni-item ng-class="{'active': item.isChoosen,'has-choosen': (item.hasChoosen && statisticLists[item.paraId] > 0)}" ng-repeat="item in data" ng-click="choosenItemLeft(item)">
                         {{item.paraNm}}
                     </div>
                 </div>
