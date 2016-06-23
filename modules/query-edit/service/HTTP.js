@@ -26,7 +26,10 @@
                 })
                 return deferred.promise;
             };
-            function transformDate(date){
+            function transformDate(date,seperate){
+                if(seperate == null) {
+                    seperate = "-";
+                }
                 var year = date.getFullYear();
                 var month = date.getMonth() + 1;
                 var day = date.getDate();
@@ -36,15 +39,15 @@
                 if(day < 10) {
                     day = "0" + day;
                 }
-                return "" + year + "-" + month + "-" + day;
+                return "" + year + seperate + month + seperate + day;
             }
             function getSqlPostParams(lists,begin,end){
                 var params = {
                     bussinessId: [],  //业务
                     outputId: [], // 指标
                     paraList: [], // 维度
-                    startTime: transformDate(begin),
-                    endTime: transformDate(end)
+                    startTime: transformDate(begin,""),
+                    endTime: transformDate(end,"")
                 };
                 for(var i in lists) {
                     if(i == '1') {

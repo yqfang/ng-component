@@ -42,7 +42,7 @@
 			}
 			function initResults(){
 				var deferred = $q.defer();
-				$http.get("store").then(function(data){
+				$http.get("store",{params: {pageSize: 8}}).then(function(data){
 					service.tempPage = 1;
 					service.hasInited = true;
 					service.results = data.data;
@@ -54,7 +54,7 @@
 			};
 			function pageChanged(){
 				var me = this;
-				$http.get("store",{params: {page: me.tempPage}}).then(function(data){
+				$http.get("store",{params: {page: me.tempPage,pageSize: 8}}).then(function(data){
 					service.results = data.data;
 				})
 			}
