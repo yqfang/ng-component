@@ -238,6 +238,10 @@
 	    })
 		.controller("queryEditLogCtrl", function($interval,$timeout,$http,$scope,$modalInstance, params) {
 			var stopInterval;
+			var logPath = params.LOG_PATH;
+			if(logPath.indexOf('FILE://') === -1) {
+				logPath = 'FILE://' + logPath;
+			}
 			$scope.preview = {};
 			function _getHiveInfo(serviceId, type, path){
                         return $http({
@@ -252,6 +256,7 @@
                         });
             };
 			function _getLogSucc(res) {
+				res = res.data.obj;
 				$scope.preview.content = res.content;
 				if(res.status != 'RN' && res.status != 'SR' && res.status != 'TR') {
 					if (angular.isDefined(stopInterval)) {
@@ -269,7 +274,7 @@
 			}
 			
 			stopInterval = $interval(function(){
-				_getHiveInfo(params.AUTO_ID, 1, params.LOG_PATH).then(_getLogSucc, _getLogFail);
+				_getHiveInfo(params.AUTO_ID, 1, logPath).then(_getLogSucc, _getLogFail);
 			}, 3000);
 			$scope.ok = function() {
 				$modalInstance.close();

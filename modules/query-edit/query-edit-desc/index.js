@@ -44,6 +44,9 @@
                     }
                     
                     this.downloadFile = function(path) {
+                        if(path.indexOf('FILE://') === -1) {
+				            path = 'FILE://' + path;
+			            }
                         window.location.href = '/edwweb/tornado/TornadoServlet?action=downloadFile' + '&path=' + path;
 			        }
                     function showLogs (params) {
