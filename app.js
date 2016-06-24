@@ -5,7 +5,7 @@ var maya = {};
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
 				$rootScope.app = {
-					name: "中国银联参数统计平台",
+					name: "中国银联统计分析平台",
 					menus: [
 						{
 							name: '<span up-icon="fa-caret-down">统计分析</span>',
