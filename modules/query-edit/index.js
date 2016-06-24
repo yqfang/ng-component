@@ -134,6 +134,12 @@
                         parent: function(){
                             return me;
                         },
+                        beginDate: function(){
+                            return me.beginDate;
+                        },
+                        endDate: function(){
+                            return me.endDate;
+                        },
                         afterExec: function(){
                             return function(){
 
@@ -180,11 +186,13 @@
                 me.desc = "";
             }
 	    })
-        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists){
+        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists,beginDate,endDate){
             $scope.lists = lists;//getCalendar
             var me = this;
             $scope.ifshow = ifshow;
             $scope.statisticLists = statisticLists;
+            $scope.beginDate = beginDate;
+            $scope.endDate = endDate;
             if(ifshow) {
                 $scope.title = "查询";
             } else {
