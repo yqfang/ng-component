@@ -1,7 +1,7 @@
 (function () {
 
     angular.module('mod-query-edit')
-        .controller("queryEditCtrl", function(formMaker,$rootScope, queryEditDescService,currentModule,queryEditHttp,$modal,$q) {
+        .controller("queryEditCtrl", function(formMaker,$rootScope, queryEditDescService,currentModule,queryEditHttp,$modal,$q,dialogs) {
         	var me = this;
 			$rootScope.app.currentModule = currentModule;
             this.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
@@ -46,6 +46,7 @@
             	$modal.open({
         			templateUrl: "modules/query-edit/modal/statistic.html",
         			controller: "queryEditStatistic",
+                    size: 'lg',
         			resolve: {
         				data: function(){
         					return data;
@@ -152,11 +153,11 @@
                 })
             }
             this.beginDate = {
-                value: null,
+                value: new Date(),
                 opened: false
             };
             this.endDate = {
-                value: null,
+                value: new Date(),
                 opened: false
             };
             this.dateOptions = {
@@ -169,7 +170,7 @@
                         openSearchModal(true,data);
                     })  
                 } else {
-                    alert("时间格式有问题！");
+                   dialogs.error('错误','没有选择时间或者时间格式错误');
                 }
                 
             };
@@ -186,7 +187,7 @@
                 me.desc = "";
             }
 	    })
-        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists,beginDate,endDate){
+        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists,beginDate,endDate,dialogs){
             $scope.lists = lists;//getCalendar
             var me = this;
             $scope.ifshow = ifshow;
@@ -237,9 +238,9 @@
             };
             $scope.store = function(){
                  queryEditHttp.store($scope.sqlContent).then(function(data){
-                    confirm('收藏成功');
+                    dialogs.notify('提示','收藏成功');
                  },function(){
-                     confirm('收藏失败');
+                    dialogs.error('提示','收藏失败');
                  })
             };
             $scope.close = function(){
