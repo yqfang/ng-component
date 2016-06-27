@@ -110,7 +110,7 @@
             http.store = function(content){
                 var deferred = $q.defer();
                 // {"storeContent": service.sqlContent},{uni_obj: true}
-                var dlg = dialogs.create('modules/query-edit/service/prompt.html','promptController',{},{size:'lg'});
+                var dlg = dialogs.create('modules/query-edit/service/prompt.html','promptController',{},{size: "modal-sm"});
                 dlg.result.then(function(name){
                     $http.post("newStore",{"storeContent": content,"storeNm": name ? name :"default"}).then(function(data){
                         deferred.resolve(data.data);

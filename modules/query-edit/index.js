@@ -117,6 +117,7 @@
                 $modal.open({
                     templateUrl: "modules/query-edit/modal/search.html",
                     controller: "queryEditSearch",
+                    size: "lg",
                     resolve: {  
                         lists: function(){
                             return me.lists;
@@ -170,7 +171,7 @@
                         openSearchModal(true,data);
                     })  
                 } else {
-                   dialogs.error('错误','没有选择时间或者时间格式错误');
+                   dialogs.error('错误','没有选择时间或者时间格式错误',{size: "modal-sm"});
                 }
                 
             };
@@ -238,9 +239,9 @@
             };
             $scope.store = function(){
                  queryEditHttp.store($scope.sqlContent).then(function(data){
-                    dialogs.notify('提示','收藏成功');
+                    dialogs.notify('提示','收藏成功',{size: "modal-sm"});
                  },function(){
-                    dialogs.error('提示','收藏失败');
+                    dialogs.error('提示','收藏失败',{size: "modal-sm"});
                  })
             };
             $scope.close = function(){
