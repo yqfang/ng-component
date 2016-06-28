@@ -1,7 +1,14 @@
 (function () {
 
     angular.module('mod-query-edit')
-        .factory("queryEditHttp", function($q,$http,$modal) {
+        .controller("promptController",function($scope,$modalInstance){
+            $scope.data = "";
+            $scope.placeholder = "请输入名字";
+            $scope.done = function(){
+                $modalInstance.close($scope.data);
+            }; 
+        })
+        .factory("queryEditHttp", function($q,$http,$modal,dialogs) {
             var http = {};
             http.getBuss = function(type){
                 var deferred = $q.defer();
@@ -104,12 +111,16 @@
             http.store = function(content){
                 var deferred = $q.defer();
                 // {"storeContent": service.sqlContent},{uni_obj: true}
-                var name = prompt("请输入您的名字","");
-                $http.post("newStore",{"storeContent": content,"storeNm": name ? name :"default"}).then(function(data){
-                    deferred.resolve(data.data);
+                var dlg = dialogs.create('modules/query-edit/service/prompt.html','promptController',{},{size: "modal-sm"});
+                dlg.result.then(function(name){
+                    $http.post("newStore",{"storeContent": content,"storeNm": name ? name :"default"}).then(function(data){
+                        deferred.resolve(data.data);
+                    },function(){
+                        deferred.reject();
+                    })
                 },function(){
                     deferred.reject();
-                })
+                });
                 return deferred.promise;
             }
             return http;

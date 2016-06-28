@@ -8,8 +8,8 @@
     <div class="modal-header" style="color: black;">
         <h3 class="modal-title">查看 SQL</h3>
     </div>
-    <div class="modal-body" style="color: black;max-height: 300px;overflow: auto;">
-        <p>{{sql}}</p>
+    <div class="modal-body" style="color: black;max-height: 300px;">
+        <div ui-codemirror ui-codemirror-opts="editorConfig" class="uni-codemirror" ng-model="sql"></div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">确定</button>

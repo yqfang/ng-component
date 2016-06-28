@@ -180,9 +180,11 @@
 				service.hasInited = false;
 			};
 			service.init = function(){
+				var me = this;
 				var deferred = $q.defer();
 				chooseBuss(service.ruleLists[0]).then(function(){
 					deferred.resolve();
+					me.hasInited = true;
 				})
 				return deferred.promise;
 			};
@@ -208,6 +210,16 @@
 				$scope.type = "edit";
 			}
 			$scope.item = item;
+			$scope.editorConfig = {
+                lineNumbers: true,
+                mode: "text/x-mariadb",
+                onLoad: function(cmInstance) {
+                    cmInstance.setOption('lineWrapping', true);
+                    setTimeout(function() {
+                        cmInstance.refresh();
+                    }, 0);
+                }
+            };
 			$scope.ok = function(item,type){
 				// 确定后要存储数据
 				var result = onOk(item,type);
