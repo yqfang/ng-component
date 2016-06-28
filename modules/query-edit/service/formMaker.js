@@ -50,66 +50,6 @@
                     }
 
                     }
-                },
-                getTableFliter: function() {
-                    return {
-                        "fields": [
-                            {
-                                "name": "desc",
-                                "type": "input",
-                                "label": "描述",
-                                "placeholder": "描述",
-                                "style": {
-                                    "width": "145px"
-                                }
-                            },
-                            {
-                                "name": "startTime",
-                                "type": "input:date",
-                                "label": "起始时间",
-                                "style": {
-                                    "width": "105px"
-                                }
-                                
-                            },
-                            {
-                                "name": "endTime",
-                                "type": "input:date",
-                                "label": "结束时间",
-                                "style": {
-                                    "width": "105px"
-                                }
-                            },
-                            {
-                                "type": "input:submit",
-                                "value": "查询",
-                            }
-                        ],
-                        "option": {
-                            "formClass": "form-inline query-edit--table-fliter",
-                            "inputClass": "inline-control"
-                        }
-                    }
-                },
-                getCalendar: function(){
-                    return {
-                        "fields": [
-                            {
-                                "name": "startTime",
-                                "type": "input:date",
-                                "label": "清算时间",
-                            },
-                            {
-                                "name": "endTime",
-                                "type": "input:date",
-                                "label": "结束时间",
-                            }
-                        ],
-                        "option": {
-                            "formClass": "form-inline query-edit--table-fliter",
-                            // "inputClass": "inline-control"
-                        }
-                    }
                 }
             }
         })

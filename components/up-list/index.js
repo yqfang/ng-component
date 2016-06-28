@@ -15,7 +15,7 @@
                 link: function (scope, elem, attrs)  {
                     attrs.name && (scope.name = scope.$parent.$eval(attrs.name));
                     scope.open = true;
-                    attrs.hasOwnProperty('closable') && (scope.closable = true) && (scope.clickTitle = function() {scope.open = !scope.open;elem.toggleClass('closed')});
+                    attrs.hasOwnProperty('closable') && (scope.closable = true) && (scope.clickTitle = function() {scope.open = !scope.open});
                 },
                 templateUrl: 'components/up-list/up-list.html'
             }
