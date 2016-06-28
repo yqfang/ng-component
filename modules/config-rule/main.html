@@ -1,0 +1,149 @@
+<style>
+	.config-rule-choose-wrapper {
+		padding: 20px 0;
+		text-align: center;
+	}
+	.config-rule-choose-wrapper .btn {
+		min-width: 100px;
+		margin: 0 20px;
+	}
+	.config-rule-data-wrapper {
+		position: absolute;
+		top: 128px;
+		bottom:0;
+		left:0;
+		right: 0;
+		overflow: scroll;
+	}
+	.config-rule-data-wrapper .cell-input {
+		width: 100%;
+	}
+	.config-rule-data-wrapper .opt-item {
+
+	}
+	.config-rule-data-wrapper table.table > thead > tr > th,table.table > tbody > tr > td {
+		/*display: table-cell;*/
+		vertical-align: middle;
+		text-align: center;
+	}
+	.config-rule-data-wrapper table {
+	    box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: stretch;
+	    overflow: auto;
+	}
+
+	.config-rule-data-wrapper table * {
+	    box-sizing: inherit;
+	    -moz-box-sizing: inherit;
+	}
+
+	.config-rule-data-wrapper thead {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: stretch;
+	}
+
+	.config-rule-data-wrapper tbody {
+	    display: inline-block;
+	}
+
+	.config-rule-data-wrapper thead > tr, tbody > tr, tfoot > tr {
+	    display: flex;
+	    flex-direction: row;
+	    flex-wrap: nowrap;
+	}
+
+	.config-rule-data-wrapper thead, tfoot {
+	    flex-shrink: 0;
+	}
+
+	.config-rule-data-wrapper th, tbody td {
+	    width: 20%; 
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    display: inline-block;
+	    work-break: break-word;
+		white-space: nowrap;
+	}
+	.config-rule-data-wrapper tfoot {
+	    display: inline-block;
+	}
+
+	.config-rule-data-wrapper tfoot td {
+	    width: 100%;
+	    display: inline-block;
+	}
+	.config-rule-choose-wrapper .btn.active {
+		background-color: #16456f;
+	}
+	.config-rule-span {
+		margin-left: 10px;
+	}
+	.config-rule-span:hover {
+		cursor: pointer;
+	}
+	.config-rule-span.edit:hover {
+		color: green;
+	}
+	.config-rule-span.delete:hover {
+		color: red;
+	}
+</style>
+<div oc-lazy-load='["modules/config-rule/main.js"]'>
+	<div ng-controller="configRule">
+		<div class="config-rule-choose-wrapper">
+			<div class="btn btn-primary" ng-class="{'active':item == qe.tempBuss}" ng-repeat="item in qe.ruleLists" ng-click="qe.chooseBuss(item)">{{item.name}}</div>
+			<div class="btn btn-success pull-right" ng-click="qe.addItem()">增加</div>
+		</div>
+		<div class="config-rule-data-wrapper">
+			<table st-table="displayed" class="table table-bordered table-striped">
+			    <thead>
+			    <tr>
+			        <th st-ratio="10" >名称</th>
+			        <th st-ratio="10" >ID</th>
+			        <th st-ratio="10" >类型</th>
+			        <th st-ratio="15" >joinRule</th>
+			        <th st-ratio="20" >showRule</th>
+			        <th st-ratio="20" >sqlRule</th>
+			        <th st-ratio="15" >操作</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    <tr ng-repeat="row in qe.tableLists track by $index">
+			        <td st-ratio="10" title="{{row.bussName}}">
+			        	<span>{{row.bussName}}</span>
+			        	<!-- <input ng-if="row.isEdit" type="textarea" class="cell-input" ng-model="row.bussName" value="{{row.bussName}}"/> -->
+			        </td>
+			        <td st-ratio="10" title="{{row.bussId}}">
+			        	<span>{{row.bussId}}</span>
+			        	<!-- <input ng-if="row.isEdit" type="text" class="cell-input" ng-model="row.bussId" value="{{row.bussId}}"/> -->
+			        </td>
+			        <td st-ratio="10" title="{{row.bussType}}">
+			        	<span>{{row.bussType}}</span>
+			        	<!-- <input ng-if="row.isEdit" type="text" class="cell-input" ng-model="row.bussType" value="{{row.bussType}}"/> -->
+			        </td>
+			        <td st-ratio="15" title="{{row.joinRule}}">
+			        	<span >{{row.joinRule}}</span>
+			        	<!-- <input ng-if="row.isEdit" type="text" class="cell-input" ng-model="row.joinRule" value="{{row.joinRule}}"/> -->
+			        </td>
+			        <td st-ratio="20" title="{{row.showRule}}">
+			        	<span >{{row.showRule}}</span>
+			        	<!-- <input ng-if="row.isEdit" type="text" class="cell-input" ng-model="row.showRule" value="{{row.showRule}}"/> -->
+			        </td>
+			        <td st-ratio="20" title="{{row.sqlRule}}">
+			        	<span >{{row.sqlRule}}</span>
+			        	<!-- <input ng-if="row.isEdit" type="text" class="cell-input" ng-model="row.sqlRule" value="{{row.sqlRule}}"/> -->
+			        </td>
+			        <td st-ratio="15">
+			        	<span class="config-rule-span edit" ng-click="qe.editRow(row)">编辑</span>
+			        	<span class="config-rule-span delete" ng-click="qe.deleteRow(row)">删除</span>
+			        </td>
+			    </tr>
+			    </tbody>
+			</table>
+		</div>
+	</div>
+</div>

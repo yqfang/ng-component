@@ -1,0 +1,68 @@
+<link rel="stylesheet" type="text/css" href="modules/query-edit/query-edit-desc/style.css">
+<div class="query-edit-desc-search-wrapper">
+		<div class="select-form-wrapper">
+			<!--<form class="select-form">
+				<div class="form-group">
+				    <label for="exampleInputEmail1">描述</label>
+				    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="描述">
+				</div>
+				<div class="form-inline">
+					<div class="form-group label-input-item">
+					    <label for="exampleInputName2">起始时间</label>
+					    <p class="input-group">
+		                    <input type="text" class="calendar form-control" datepicker-popup="{{dateFormat}}" ng-model="beginDate" is-open="isBeginDateOpen" datepicker-options="dateOptions" ng-required="true" close-text="确定" datepicker-append-to-body="true" close-on-date-selection="true" current-text="今天" clear-text="清除" style="height:34px;"/>
+		                      <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="toggleBegin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+		                      </span>
+		                </p>
+					</div>
+					<div class="form-group label-input-item">
+					    <label for="exampleInputName2">结束时间</label>
+					     <p class="input-group">
+		                    <input type="text" class="calendar form-control" datepicker-popup="{{dateFormat}}" ng-model="endDate" is-open="isEndDateOpen" datepicker-options="dateOptions" ng-required="true" close-text="确定" datepicker-append-to-body="true" close-on-date-selection="true" current-text="今天" clear-text="清除" style="height:34px;"/>
+		                      <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="toggleEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+		                      </span>
+		                </p>
+					</div>
+					<div class="form-group label-input-item">
+					    <p class="input-group">
+		                    <button class="btn btn-primary" ng-click="search()">
+		                    	查询
+		                    </button>
+		                </p>
+					</div>
+				</div>
+			</form>-->
+			<form u-form
+	 	  			name="querEditFliter"
+	      		ng-class="queryEditTable.option.formClass"		           
+		  			fields="queryEditTable.fields"
+		  			option="queryEditTable.option"
+		  			result="queryEditTable.queryEditDescService.result"
+		  			ng-submit="queryEditTable.submit(querEditFliter.$valid, queryEditTable.result)"/>
+		</div>
+
+		<div class="query-exec-result-wrapper">
+			<div class="query-exec-result-body">
+				<table class="table table-bordered table-hover">
+					<tr>
+						<th ng-repeat="item in tableTitles">{{item.title}}</th>
+					</tr>
+					<tr ng-repeat="item in results.data track by $index" ng-if="$index < 7" class="{{classes[$index % (classes.length)]}}" >
+						<td ng-repeat="temp in tableTitles" ng-class="{'myactive': !item[temp.alias]}" ng-click="temp.onclick && temp.optionAlias != 'showlogs' ? temp.onclick(item,temp) : null" >
+						<span ng-if="temp.optionAlias != 'showlogs'">
+							{{item[temp.alias] ? item[temp.alias] : (temp.optionAlias != 'download' ? temp.optName : '')}}
+						</span>
+						<a ng-if="temp.optionAlias == 'showlogs'" class="hand opt" ng-repeat="opt in temp.opts" ng-click="opt.click(item)">
+							{{opt.optName}}
+						</a>
+						<a ng-if="temp.optionAlias=='download'" class="hand" ng-click="queryEditTable.downloadFile(item.STORE_PATH)"  >{{temp.optName}}</a></td>
+					</tr>
+				</table>
+			</div>
+			<div class="query-exec-result-page">
+				<div pagination total-items="results.records" items-per-page="7" ng-model="results.page" max-size="5" class="pagination-sm" boundary-links="true" ng-change="pageChanged()" rotate="false" first-text="首页" last-text="尾页" next-text="下一页" previous-text="上一页"></div>
+			</div>
+		</div>
+	</div>

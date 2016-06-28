@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html ng-app="maya">
 <head>
-	<title>angular-data-driven-form</title>
+	<title>中国银联日常统计分析系统</title>
 	<meta charset=utf-8>
 	<meta http-equiv=X-UA-Compatible content="IE=edge">
 	<meta name=viewport content="width=device-width,initial-scale=1">
 	<meta name="author" content="yqfang,qianzhixiang">
 	<!--<link href="lib/ripples.css" rel="stylesheet">-->
-	<link href="lib/bootstrap.css" rel="stylesheet">
+	<link rel="icon" type="image/ico" href="http://o6lt5vq1m.bkt.clouddn.com/bitbug_favicon.ico"/>
+	<link href="lib/bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet">
 	<!--<link href="lib/bootstrap-material-design.css" rel="stylesheet">-->
     <link rel="stylesheet" href="lib/font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/codemirror/theme/twilight.css">
+	<link rel="stylesheet" type="text/css" href="lib/dialog/style.css">
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -17,7 +21,7 @@
 <script src="lib/es5/es5-shim.js"></script>
 <script src="lib/html5shiv/html5shiv.js"></script>
 <script src="lib/createElement.js"></script>
-<script src="lib/respond.js"></script>
+<!--<script src="lib/respond.js"></script>-->
 <![endif]-->
 
 <script type="text/javascript" src="lib/jquery.min.js"></script>
@@ -30,15 +34,26 @@
 <script type="text/javascript" src="lib/angular-ui-router.js"></script>
 <script type="text/javascript" src="lib/ct-ui-router-extras.js"></script>
 <script type="text/javascript" src="lib/ocLazyLoad.js"></script>
-
+<script type="text/javascript" src="node_modules/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="node_modules/codemirror/mode/sql/sql.js"></script>
+<script type="text/javascript" src="node_modules/angular-ui-codemirror/src/ui-codemirror.js"></script>
+<script src="lib/angular.translate.js"></script>
+<script type="text/javascript" src="node_modules/angular-dialog-service/dist/dialogs-default-translations.js"></script>
+<script type="text/javascript" src="node_modules/angular-dialog-service/dist/dialogs.js"></script>
+<script type="text/javascript" src="node_modules/angular-smart-table/dist/smart-table.min.js"></script>
+<script type="text/javascript" src='lib/dialog/main.js'></script>
 <!--up-component-->
 <script type="text/javascript" src="components/index.js"></script>
+<script type="text/javascript" src="components/up-collapse/index.js"></script>
 <script type="text/javascript" src="components/up-util/index.js"></script>
 <script type="text/javascript" src="components/up-site/index.js"></script>
 <script type="text/javascript" src="components/up-list/index.js"></script>
 <script type="text/javascript" src="components/up-icon/index.js"></script>
 <script type="text/javascript" src="components/up-link/index.js"></script>
 <script type="text/javascript" src="components/up-app/index.js"></script>
+<script type="text/javascript" src="components/uni-lists/main.js"></script>
+<script type="text/javascript" src="components/modal-resize/main.js"></script>
+<link rel="stylesheet" type="text/css" href="components/uni-lists/style.css">
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="components/up-form/upForm.js"></script>
 <script type="text/javascript" src="modules/index.js"></script>
@@ -89,7 +104,6 @@
 		letter-spacing: 1mm;
 	}
 	.up-site--main {
-        z-index: 1020;
         position: fixed;
         overflow: hidden;
         left: 10px;
@@ -104,6 +118,15 @@
 		border-style: solid;
 		border-width: 0 1px 2px;
 	}
+	.up-site--main.closed .up-site--menu {
+		width: 66px;
+	}
+	.up-site--main.closed .up-site--body {
+		left: 66px
+	}
+	.up-site--main.closed .up-site--menu .menu-title {
+		display: none;
+	}
 	.up-site--menu .list-title{
 		cursor: pointer;
 		text-shadow: 0 1px 0 #ffffff;
@@ -111,20 +134,27 @@
 		font-weight: bold;
 		position: relative;
 		display: block;
-		padding: 10px 15px;
 		color: #3b6c8e;
 		border-bottom: 1px solid #eee;
 	}
+	.up-site--menu i {
+		padding: 10px;
+		display: inline-block;
+		width: 34px;
+		height: 34px;
+		text-align: center;
+	}
 	.up-site--menu {
-		margin-left: 5px;
-		width:230px;
+		width:220px;
 		z-index: 102;
 		overflow-x: hidden;
 		position: absolute;
-		top: 30px;
+		top: 70px;
+		
 	}
+
 	.up-site--menu ul, .up-site--menu-title {
-		margin: 15px 15px 15px 15px;
+		margin: 5px 15px 0 15px;
 		padding-left: 0;
 		background-color: #f5f5f5;
 		border-color: #d8d8d8 #d8d8d8 #d5d5d5;
@@ -154,9 +184,8 @@
 	.up-site--menu a {
 		position: relative;
 		display: block;
-		padding: 10px 15px;
 		color: #737373;;
-		border-left: 2px solid transparent;
+		border-right: 2px solid transparent;
 	}
 	.up-site--menu .active a {
 		border-color: #427fed;
@@ -169,11 +198,18 @@
 		border-radius: 3px;
 		width: auto;
 		position: absolute;
-		left: 240px;
+		left: 220px;
 		bottom: 10px;
 		right: 10px;
         top: 10px;
         overflow:hidden;
+	}
+	.up-site--body-header {
+		font-size: 20px;
+		padding: 5px 0 12px 5px;
+		margin-left: 10px;
+		margin-bottom: 15px;
+		border-bottom: 1px solid #ccc;
 	}
 	.up-site--foot {
 		border-top: 1px solid #333;
@@ -190,7 +226,6 @@
 		text-shadow: 0 1px 0 #ffffff;
 		height: 35px;
 		line-height: 35px;
-		padding-left: 15px;
 	}
 </style>
 

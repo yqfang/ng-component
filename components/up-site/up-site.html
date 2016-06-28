@@ -5,9 +5,12 @@
         </div>
         <div class="up-site--main">
                 <div class="up-site--menu" transclude-id="site-menu">
-                    <div class="up-site--menu-title ">系统导航</div>
+                    <div class="up-site--menu-title" up-collapse up-icon="fa fa-angle-double-left fa-open" up-icon-append="5"><span up-icon="fa fa-globe">系统导航</span></div>
                 </div>
-                <div class="up-site--body" transclude-id="site-body"></div>
+                <div class="up-site--body">
+                    <div class="up-site--body-header" transclude-id="site-body-header"></div>
+                    <div class="up-site--body-content" transclude-id="site-body"></div>
+                </div>
         </div>
         <div class="up-site--foot">
             <div>Copyright &copy; 2009-2016 中国银联版权所有</div>
