@@ -40,6 +40,17 @@
      .date-wrapper .calendar{
         padding: 5px;
      }
+     .modal_wrapper.search .date-span{
+        display: inline-block;
+        padding: 2px 3px;
+        margin: 3px;
+        background-color: #f3c580;
+        color: white;
+     }
+      .modal_wrapper.search .date-span:hover {
+        cursor: pointer;
+        background-color: #ffb039;
+      }
 </style>
 <div class="modal_wrapper search">
     <div class="modal-header" style="color: black;">
@@ -47,6 +58,13 @@
     </div>
     <div class="modal-body" style="color: black;height: 300px;overflow: auto;margin-top: 10px;">
        <div ng-if="ifshow" class="left-content">
+          <div class="single-item">
+               <h3>时间</h3>
+               <div style="margin-left:20px;">
+                  <span class="date-span">{{beginDate.value.toLocaleDateString()}}</span>&nbsp;:
+                  <span class="date-span"> {{endDate.value.toLocaleDateString()}} </span>
+               </div>
+           </div>
            <div class="single-item">
                <h3>维度</h3>
                <div ng-repeat="item in lists['1']" style="margin-left:20px;">

@@ -1,7 +1,7 @@
 (function () {
 
     angular.module('mod-query-edit')
-        .controller("queryEditCtrl", function(formMaker,$rootScope, queryEditDescService,currentModule,queryEditHttp,$modal,$q) {
+        .controller("queryEditCtrl", function(formMaker,$rootScope, queryEditDescService,currentModule,queryEditHttp,$modal,$q,dialogs) {
         	var me = this;
 			$rootScope.app.currentModule = currentModule;
             this.editorConfig = {lineNumbers: true,mode: "text/x-mariadb",theme: "twilight"};
@@ -24,12 +24,13 @@
             };
             this.closeStatisticChooen = function(item){
             	item.isChoosen = false;
-               if(me.statisticLists[item.parentItem.paraId]) {
-                me.statisticLists[item.parentItem.paraId]--;
-                if(me.statisticLists[item.parentItem.paraId] <= 0) {
-                    me.statisticLists[item.parentItem.paraId] = 0;
-                }
-               }
+                me.temp.tempIndexNum > 0 ? (me.temp.tempIndexNum--) : me.temp.tempIndexNum = 0;
+               // if(me.statisticLists[item.parentItem.paraId]) {
+               //  me.statisticLists[item.parentItem.paraId]--;
+               //  if(me.statisticLists[item.parentItem.paraId] <= 0) {
+               //      me.statisticLists[item.parentItem.paraId] = 0;
+               //  }
+               // }
             };
             this.beginTime = null;
             this.beginOpened = true;
@@ -46,6 +47,7 @@
             	$modal.open({
         			templateUrl: "modules/query-edit/modal/statistic.html",
         			controller: "queryEditStatistic",
+                    size: 'lg',
         			resolve: {
         				data: function(){
         					return data;
@@ -69,7 +71,7 @@
         			}
         		})
             }
-            this.temp = {tempItem: null};
+            this.temp = {tempItem: null,zhibiao: 0};
             this.openStatistic = function(){
             	if(! me.statisticData) {
             		queryEditHttp.getBuss(1).then(function(data){
@@ -98,6 +100,9 @@
         						return deferred.promise;
         					}
         				},
+                        temp: function(){
+                            return me.temp;
+                        }
         			}
         		})
             }
@@ -105,6 +110,7 @@
             	if(!me.lists["" + paraId]) {
             		queryEditHttp.getBuss(paraId).then(function(data){
             			me.lists["" + paraId] = data;
+                        me.temp.tempBuss = "" + paraId;
             			openChooseModal(paraId+ "");
             		})
             	} else {
@@ -116,6 +122,7 @@
                 $modal.open({
                     templateUrl: "modules/query-edit/modal/search.html",
                     controller: "queryEditSearch",
+                    size: "lg",
                     resolve: {  
                         lists: function(){
                             return me.lists;
@@ -134,6 +141,12 @@
                         parent: function(){
                             return me;
                         },
+                        beginDate: function(){
+                            return me.beginDate;
+                        },
+                        endDate: function(){
+                            return me.endDate;
+                        },
                         afterExec: function(){
                             return function(){
 
@@ -146,11 +159,11 @@
                 })
             }
             this.beginDate = {
-                value: null,
+                value: new Date(),
                 opened: false
             };
             this.endDate = {
-                value: null,
+                value: new Date(),
                 opened: false
             };
             this.dateOptions = {
@@ -159,11 +172,15 @@
               };
             this.search = function(){
                 if(me.beginDate.value && me.endDate.value && me.beginDate.value instanceof Date && me.endDate.value instanceof Date) {
-                   queryEditHttp.generate(me.lists,me.beginDate.value,me.endDate.value).then(function(data){
-                        openSearchModal(true,data);
-                    })  
+                   if(me.temp.tempIndexNum > 0) {
+                        queryEditHttp.generate(me.lists,me.beginDate.value,me.endDate.value).then(function(data){
+                            openSearchModal(true,data);
+                        })
+                   } else {
+                        dialogs.error('错误','`指标`选项为必选',"sm");
+                   }
                 } else {
-                    alert("时间格式有问题！");
+                   dialogs.error('错误','没有选择时间或者时间格式错误',"sm");
                 }
                 
             };
@@ -178,13 +195,17 @@
                 };
                 me.statisticLists = {};
                 me.desc = "";
+                me.temp = {};
+                dialogs.notify("提示", "清空成功", "sm")
             }
 	    })
-        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists){
+        .controller("queryEditSearch",function($scope,queryEditDescService,lists,$modalInstance,ifshow,queryEditHttp,formMaker,parent,afterExec,content,statisticLists,beginDate,endDate,dialogs){
             $scope.lists = lists;//getCalendar
             var me = this;
             $scope.ifshow = ifshow;
             $scope.statisticLists = statisticLists;
+            $scope.beginDate = beginDate;
+            $scope.endDate = endDate;
             if(ifshow) {
                 $scope.title = "查询";
             } else {
@@ -229,9 +250,9 @@
             };
             $scope.store = function(){
                  queryEditHttp.store($scope.sqlContent).then(function(data){
-                    confirm('收藏成功');
+                    dialogs.notify('提示','收藏成功',"sm");
                  },function(){
-                     confirm('收藏失败');
+                    dialogs.error('提示','收藏失败',"sm");
                  })
             };
             $scope.close = function(){
@@ -239,11 +260,23 @@
             }
 
         })
-	    .controller('queryEditChoosen',function($scope,lists,id,$modalInstance){
+	    .controller('queryEditChoosen',function($scope,lists,id,$modalInstance,temp){
 	    	$scope.lists = lists;
             $scope.choosenItem = function(item){
                 if(item) {
                     item.isChoosen = !item.isChoosen;
+                    if(temp.tempBuss == "3") {
+                        // 是指标
+                        temp.tempIndexNum = temp.tempIndexNum ? temp.tempIndexNum : 0;
+                        if(item.isChoosen) {
+                            temp.tempIndexNum++;
+                        } else {
+                            temp.tempIndexNum--;
+                            if(temp.tempIndexNum < 0) {
+                                temp.tempIndexNum = 0;
+                            }
+                        }
+                    }
                 }
             }
             $scope.title = (id == "2") ? "业务" : "指标";
@@ -253,6 +286,17 @@
 	    })
         .controller("showSqlCtrl", function($scope, $modalInstance, params) {
             $scope.sql = params.SQL_DESC;
+            $scope.editorConfig = {
+                lineNumbers: true,
+                mode: "text/x-mariadb",
+                readOnly: true,
+                onLoad: function(cmInstance) {
+                    cmInstance.setOption('lineWrapping', true);
+                    setTimeout(function() {
+                        cmInstance.refresh();
+                    }, 0);
+                }
+            };
             $scope.ok = function() {
 				$modalInstance.close();
 

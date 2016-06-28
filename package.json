@@ -15,6 +15,7 @@
     "oclazyload": "^1.0.9"
   },
   "devDependencies": {
+    "angular-dialog-service": "^5.3.0",
     "bootstrap": "^3.3.6",
     "ui-select": "^0.18.0"
   }
