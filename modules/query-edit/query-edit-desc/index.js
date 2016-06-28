@@ -44,6 +44,7 @@
                     }
                     
                     this.downloadFile = function(path) {
+                        debugger;
                         if(path.indexOf('FILE://') === -1) {
 				            path = 'FILE://' + path;
 			            }
@@ -53,6 +54,7 @@
                         $modal.open({
                           templateUrl: 'modules/query-edit/modal/log.html',
                           controller: 'queryEditLogCtrl',
+                          size: 'lg',
                           resolve: {
                               params: function() {
                                   return params;
@@ -107,6 +109,7 @@
                             $modal.open({
                             templateUrl: 'modules/query-edit/modal/sql.html',
                             controller: 'showSqlCtrl',
+                            size: 'lg',
                             resolve: {
                                 params: function() {
                                     return params;
