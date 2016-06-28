@@ -2,7 +2,8 @@
 
     angular.module('mod-query-edit')
         .controller("promptController",function($scope,$modalInstance){
-            $scope.data = "asd";
+            $scope.data = "";
+            $scope.placeholder = "请输入名字";
             $scope.done = function(){
                 $modalInstance.close($scope.data);
             }; 
