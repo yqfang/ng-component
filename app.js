@@ -1,28 +1,26 @@
 var maya = {};
 ;(function() {
-	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap', 'up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad','ui.codemirror','dialogs.main']);
+	var app = angular.module("maya", [ 'ngSanitize', 'uForm', 'ui.bootstrap','up-components', 'maya-modules', 'ui.router','ct.ui.router.extras', 'oc.lazyLoad']);
 		app.run(function ($rootScope, $state, $stateParams) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
 				$rootScope.app = {
-					name: "中国银联日常统计分析系统",
+					name: "中国银联参数统计平台",
 					menus: [
 						{
-							name: '<span up-icon="fa-caret-down">统计分析</span>',
-							items: ['<up-link up-icon="fa-pencil-square-o" active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
-								'<up-link up-icon="fa-folder-open-o" active-state="queryFavor" href="#/query/favor" name="我的收藏"/>']
+							name: '<span up-icon="fa-camera-retro"> 统计分析</span>',
+							items: ['<up-link active-state="queryEdit" href="#/query/edit" name="查询编辑"/>',
+								'<up-link active-state="queryFavor" href="#/query/favor" name="我的查询"/>']
 						},
 						{
-							name: '<span up-icon="fa fa-caret-down">业务规则管理</span>',
-							items: [
-							// '<up-link up-icon="fa-key" active-state="configAuth" href="#/config/auth" name="权限管理"/>',
-								'<up-link up-icon="fa-bar-chart" active-state="configRule" href="#/config/rule" name="统计参数"/>']
+							name: "业务规则管理",
+							items: ['<up-link up-icon="fa-camera-retro" active-state="configAuth" href="#/config/auth" name="权限管理"/>',
+								'<up-link active-state="configRule" href="#/config/rule" name="统计参数"/>']
 						}
-					],
-					currentModule: '<span up-icon="fa-pencil-square-o">查询编辑</span>'
+					]
 				}
 		    })
-		app.config(function($ocLazyLoadProvider, datepickerConfig) {
+		app.config(function($ocLazyLoadProvider) {
 			$ocLazyLoadProvider.config({
 				debug: false,
 				modules: [
@@ -31,17 +29,14 @@ var maya = {};
 						files: [
 							"modules/query-edit/index.js",
 							"modules/query-edit/mod-query-edit/index.js",
-							"modules/query-edit/service/formMaker.js",
-							"modules/query-edit/query-edit-desc/index.js",
-							"modules/query-edit/service/HTTP.js"
+							"modules/query-edit/service/formMaker.js"
 						]
 					}
 				]
-			});
-			datepickerConfig.showWeeks = false;
-			// datepickerPopupConfig.datepickerPopup = "yyyy-MM-dd";
+			})
 		})
-		app.config(function($stateProvider, $urlRouterProvider) {
+		app.config(function(datepickerConfig, $stateProvider, $urlRouterProvider) {
+			datepickerConfig.showWeeks = false;
 			$urlRouterProvider
 				.when('/', '/query/edit')
 				.otherwise('/query/edit');
@@ -54,66 +49,20 @@ var maya = {};
 					resolve: {
 						queryEdit: function($ocLazyLoad) {
 							return $ocLazyLoad.load(["queryEdit"])
-						},
-						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-pencil-square-o">查询编辑</span>';
-						}		
+						}
 					}
 				})
 				.state('queryFavor', {
 					url: '/query/favor',
-					templateUrl: 'modules/query-favor/main.html',
-					resolve: {
-						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-folder-open-o">我的收藏</span>';
-						},
-					}
-				})
-				.state('configAuth', {
-					url: '/config/auth',
-					template: '<div>权限管理</div>',
-					resolve: {
-						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-key">权限管理</span>';
-						}		
-					}
+					template: '<div>我的查询</div>'
 				})
 				.state('configRule', {
 					url: '/config/rule',
-					templateUrl: 'modules/config-rule/main.html',
-					resolve: {
-						currentModule: function($rootScope) {
-							return $rootScope.app.currentModule = '<span up-icon="fa-bar-chart">统计参数</span>';
-						}		
-					}
+					template: '<div>业务规则管理</div>'
+				})
+				.state('configAuth', {
+					url: '/config/auth',
+					template: '<div>用户权限管理</div>'
 				})
 		})
-		app.factory('httpInterceptor', [ '$q', '$injector',function($q, $injector) {
-		        var httpInterceptor = {
-		            'request' : function(config) {
-		            	if(config.method == "POST" && !config.uni_obj) {
-		            		config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-		            		config.transformRequest = function(obj){
-			            		var str = [];
-								for(var i in obj){
-		                            if(typeof obj[i] == "object") {
-		                                str.push(encodeURIComponent(i) + "=" + encodeURIComponent(angular.toJson(obj[i])));
-
-		                            } else {
-		                                str.push(i + "=" + obj[i]);
-		                            }
-								};
-								return str.join("&");
-			           		};
-		            	}
-		                return config;
-		            },
-		        }
-		    return httpInterceptor;
-		}])
-		app.config(function($httpProvider){
-			$httpProvider.interceptors.push('httpInterceptor');
-			$httpProvider.defaults.withCredentials = true;
-		})
-		
 })(maya)
