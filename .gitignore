@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+lib/.DS_Store
+npm-debug.log
+sftp-config.json
+lib
+
