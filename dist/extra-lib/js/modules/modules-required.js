@@ -2,7 +2,7 @@
  * my-maya
  * 
  * zxqian1991,yqfang
- * @version: 1.0.0 - 2016-07-11T03:13:16.128Z
+ * @version: 1.0.0 - 2016-07-11T06:11:48.793Z
  * @license: ISC
  */
 /**

@@ -18,7 +18,7 @@ var header_config = {
       ' * @license: <%= pkg.license %>\n' +
       ' */\n'
 };
-gulp.task('default', ['build:extra_modules']);
+gulp.task('default', ['build:extra_modules','build:ie_pack']);
 gulp.task('build:extra_modules',function(){
   return gulp.src([
       'lib/ct-ui-router-extras.js','lib/ocLazyLoad.js','node_modules/codemirror/lib/codemirror.js','node_modules/codemirror/mode/sql/sql.js',
@@ -35,6 +35,18 @@ gulp.task('build:extra_modules',function(){
       .pipe($.uglify())
       .pipe($.concat('modules-required.min.js'))
       .pipe(gulp.dest('dist/extra-lib/js/modules'));
+})
+gulp.task('build:ie_pack',function(){
+  return gulp.src(['lib/json3/json3.js','lib/es5/es5-shim.js','lib/html5shiv/html5shiv.js','lib/createElement.js','lib/respond.js'])
+            .pipe($.plumber({
+              errorHandler: handleError
+            }))
+            .pipe($.concat('ie8.js'))
+            .pipe($.header(header_config.banner, header_config.config))
+            .pipe(gulp.dest('dist/extra-lib/js/ie'))
+            .pipe($.uglify())
+            .pipe($.concat('ie8.min.js'))
+            .pipe(gulp.dest('dist/extra-lib/js/ie'))
 })
 var handleError = function (err) {
   console.log(err.toString());
