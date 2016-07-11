@@ -1,9 +1,6 @@
 ;(function() {
-	var app = angular.module("app", [ 'ngSanitize'
-		, 'uForm', 'up-components'
-		, 'modules', 'ui.router'
-		,'oc.lazyLoad','ui.codemirror'
-		,'dialogs.main']);
+	var app = angular.module("app", [ 'up-components'
+		, 'modules', 'ng-package']);
 		app.run(function ($rootScope, $state, $stateParams) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;

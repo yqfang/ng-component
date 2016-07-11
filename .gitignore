@@ -2,5 +2,6 @@ node_modules
 .DS_Store
 npm-debug.log
 sftp-config.json
-lib
-
+up-lib
+.gitignore~
+..gitignore.un~
