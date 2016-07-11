@@ -2,7 +2,7 @@
  * my-maya
  * 
  * zxqian1991,yqfang
- * @version: 1.0.0 - 2016-07-11T06:11:48.793Z
+ * @version: 1.0.0 - 2016-07-11T06:44:49.886Z
  * @license: ISC
  */
 /*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */

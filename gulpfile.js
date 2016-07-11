@@ -29,6 +29,7 @@ gulp.task('build:extra_modules',function(){
        .pipe($.plumber({
         errorHandler: handleError
       }))
+      .pipe($.ngAnnotate())
       .pipe($.concat('modules-required.js'))
       .pipe($.header(header_config.banner, header_config.config))
       .pipe(gulp.dest('dist/extra-lib/js/modules'))
@@ -41,6 +42,7 @@ gulp.task('build:ie_pack',function(){
             .pipe($.plumber({
               errorHandler: handleError
             }))
+            .pipe($.ngAnnotate())
             .pipe($.concat('ie8.js'))
             .pipe($.header(header_config.banner, header_config.config))
             .pipe(gulp.dest('dist/extra-lib/js/ie'))
