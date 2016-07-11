@@ -3,7 +3,7 @@
  */
 
 // usage: <upLink href="#/" name="mainPage" />
-(function () {
+;(function () {
     angular.module('up-components')
         .directive("upLink", function () {
             return {
@@ -18,4 +18,4 @@
                 templateUrl: 'components/up-link/up-link.html'
             }
         })
-})()
+})();

@@ -1,5 +1,175 @@
 @import "dist/up-lib/dist/css/uplib.min.css";
 @import "dist/up-lib/dist/css/uplib-ie.css";
-@import "node_modules/codemirror/lib/codemirror.css";
-@import "node_modules/codemirror/theme/twilight.css";
-@import "lib/dialog/style.css";
+@import "dist/extra-lib/css/codemirror";
+@import "dist/extra-lib/css/dialog";
+@import "dist/extra-lib/css/twilight";
+@import "dist/extra-lib/css/up-lib";
+[transclude-to='site-head'] {
+	display: inline-block;
+}
+body {
+	font-family: "Microsoft YaHei", tahoma, arial, Helvetica, sans-serif;
+	color: #fff;
+	padding-top: 50px;
+}
+a:active, a:visited {
+    border: none;
+    outline: none;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+body, html {
+	background-color: #3a3c42;
+}
+.up-site--logo {
+	margin-right: 28px;
+}
+.up-site--head, .up-site--foot {
+	height: 50px;
+	line-height: 50px;
+	left: 0;
+	right: 0;
+	z-index: 1030;
+	position: fixed;
+	background-color: #464950;
+
+}
+.up-site--head {
+	top: 0;
+	border-bottom: 1px solid #333;
+	padding-left: 30px;
+	display: inline-block;
+	font-size: 18px;
+	color: #fff;
+	font-weight: bold;
+	letter-spacing: 1mm;
+}
+.up-site--main {
+    position: fixed;
+    overflow: hidden;
+    left: 10px;
+    right: 10px;
+    bottom: 60px;
+    top: 60px;
+	background-color: #eee;
+	border-image: none;
+	border-left: 1px solid #d8d8d8;
+	border-radius: 3px;
+	border-right: 1px solid #d8d8d8;
+	border-style: solid;
+	border-width: 0 1px 2px;
+}
+.up-site--main.closed .up-site--menu {
+	width: 66px;
+}
+.up-site--main.closed .up-site--body {
+	left: 66px
+}
+.up-site--main.closed .up-site--menu .menu-title {
+	display: none;
+}
+.up-site--menu .list-title{
+	cursor: pointer;
+	text-shadow: 0 1px 0 #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	position: relative;
+	display: block;
+	color: #3b6c8e;
+	border-bottom: 1px solid #eee;
+}
+.up-site--menu i {
+	padding: 10px;
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	text-align: center;
+}
+.up-site--menu {
+	width:220px;
+	z-index: 102;
+	overflow-x: hidden;
+	position: absolute;
+	top: 70px;
+	
+}
+
+.up-site--menu ul, .up-site--menu-title {
+	margin: 5px 15px 0 15px;
+	padding-left: 0;
+	background-color: #f5f5f5;
+	border-color: #d8d8d8 #d8d8d8 #d5d5d5;
+	border-image: none;
+	border-left: 1px solid #d8d8d8;
+	border-radius: 3px;
+	border-right: 1px solid #d8d8d8;
+	border-style: solid;
+	border-width: 0 1px 2px;
+}
+
+.up-site--menu li {
+	position: relative;
+	display: block;
+	margin: 0;
+	border-bottom: 1px solid #eee;
+}
+.up-site--menu li a:hover {
+	text-decoration: none;
+	background-color: #eee;
+	color: #000000;
+	border-color: #427fed;
+}
+.up-site--menu li a:focus {
+	text-decoration: none;
+}
+.up-site--menu a {
+	position: relative;
+	display: block;
+	color: #737373;;
+	border-right: 2px solid transparent;
+}
+.up-site--menu .active a {
+	border-color: #427fed;
+    background-color: #eee;
+
+}
+.up-site--body {
+	color: #000;
+	border-image: none;
+	border-radius: 3px;
+	width: auto;
+	position: absolute;
+	left: 220px;
+	bottom: 10px;
+	right: 10px;
+    top: 10px;
+    overflow:hidden;
+}
+.up-site--body-header {
+	font-size: 20px;
+	padding: 5px 0 12px 5px;
+	margin-left: 10px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+}
+.up-site--foot {
+	border-top: 1px solid #333;
+	bottom: 0;
+	text-align: right;
+	padding-right: 30px;
+	color: #fff;
+}
+.up-site--menu-title {
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	color: #3b6c8e;
+	text-shadow: 0 1px 0 #ffffff;
+	height: 35px;
+	line-height: 35px;
+}

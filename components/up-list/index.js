@@ -3,7 +3,7 @@
  */
 
 //usage: <up-list items="items" selected="selected" title="title" closable"/>
-(function () {
+;(function () {
     angular.module('up-components')
         .directive("upList", function () {
             return {
@@ -20,5 +20,5 @@
                 templateUrl: 'components/up-list/up-list.html'
             }
         })
-})()
+})();
 
