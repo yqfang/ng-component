@@ -1,4 +1,4 @@
-(function () {
+;(function () {
     angular.module('up-components')
         .directive("upSite", function (MultiTransclude) {
 
@@ -12,5 +12,5 @@
                 templateUrl: 'components/up-site/up-site.html'
             }
         })
-})()
+})();
 

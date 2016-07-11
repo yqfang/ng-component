@@ -1,7 +1,7 @@
 /**
  * Created by yqfang on 16/6/6.
  */
-(function() {
+;(function() {
     angular.module('up-components')
         .directive('upIcon',function($timeout){
             function  getInner(ele) {
@@ -41,5 +41,5 @@
                 }
             }
         })
-})()
+})();
 

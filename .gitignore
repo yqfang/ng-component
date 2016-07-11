@@ -1,6 +1,6 @@
 node_modules
+gulpfile.js
+sftp-config.json
+style.less
 .DS_Store
 lib/.DS_Store
-npm-debug.log
-sftp-config.json
-
