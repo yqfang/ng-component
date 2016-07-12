@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html ng-app="maya">
 <head>
@@ -7,18 +8,26 @@
 	<meta name=viewport content="width=device-width,initial-scale=1">
 	<meta name="author" content="yqfang,qianzhixiang">
 	<link rel="icon" type="image/ico" href="http://o6lt5vq1m.bkt.clouddn.com/bitbug_favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="dist/up-lib/dist/css/uplib.css">
-	<link rel="stylesheet" type="text/css" href="dist/up-lib/dist/css/uplib-ie.css">
-	<link rel="stylesheet" type="text/css" href="dist/extra-lib/css/codemirror.css">
-	<link rel="stylesheet" type="text/css" href="dist/extra-lib/css/dialog.css">
-	<link rel="stylesheet" type="text/css" href="dist/extra-lib/css/twilight.css">
-	<link rel="stylesheet" type="text/css" href="dist/extra-lib/css/up-lib.css">
+	<link rel="stylesheet" type="text/css" href="up-lib/dist/css/uplib.css">
+	<link rel="stylesheet" type="text/css" href="lib/css/codemirror.css">
+	<link rel="stylesheet" type="text/css" href="lib/css/dialog.css">
+	<link rel="stylesheet" type="text/css" href="lib/css/twilight.css">
+	<link rel="stylesheet" type="text/css" href="lib/css/up-list.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<!--[if lte IE 9]>
-		<script type="text/javascript" src="dist/extra-lib/js/ie/ie8.min.js"></script>
+		<script>			
+			document.createElement('up-site');
+			document.createElement('up-list');
+			document.createElement('up-link');
+			document.createElement('up-app');
+		</script>
+		<script type="text/javascript" src="dist/up-lib/dist/uplib-ie.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="dist/up-lib/dist/css/uplib-ie.css">
 	<![endif]-->
-	<script type="text/javascript" src="dist/up-lib/dist/uplib.min.js"></script>
-	<script type="text/javascript" src="dist/extra-lib/js/modules/modules-required.min.js"></script>
+	<script type="text/javascript" src="up-lib/dist/uplib.min.js"></script>
+	<script type="text/javascript" src="lib/js/codemirror/codemirror.js"></script>
+	<script type="text/javascript" src="lib/js/codemirror/ui-codemirror.js"></script>
+	<script type="text/javascript" src="lib/js/codemirror/sql.js"></script>
 	<script type="text/javascript" src="components/index.js"></script>
 	<script type="text/javascript" src="components/up-collapse/index.js"></script>
 	<script type="text/javascript" src="components/up-util/index.js"></script>
