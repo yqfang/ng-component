@@ -30,7 +30,7 @@
 			var ruleLists = [
 				{name: "统计维度",bussId: 1},
 				{name: "业务",bussId: 2},
-				{name: "统计指标",bussId: 3},
+				{name: "统计指标",bussId: 3}
 			];
 			var tableTitles = [
 				{title: "名称",alias: "bussName"},

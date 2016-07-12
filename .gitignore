@@ -5,3 +5,4 @@ style.less
 .DS_Store
 lib/.DS_Store
 package.json
+up-lib
