@@ -2,7 +2,7 @@
     <li ng-if="name" ng-click="clickTitle()" class="list-title" bind-html-compile="name"></li>
     <div ng-show="open">
         <li ng-repeat="item in items" ui-sref-active="{{item.state}}"
-            bind-html-compile="item">
+            bind-html-compile="item.value">
         </li>
     </div>
 </ul>
