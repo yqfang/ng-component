@@ -29,7 +29,12 @@
                     scope.$watch(function() {
                         return $rootScope.role
                     }, function(value) {
-                        elem.css('display', rule[m][value] ? '' : 'none')
+                        if(!rule[m][value]) {
+                            elem.remove();
+                            scope.$destroy();
+                        }
+
+                        // elem.css('display', rule[m][value] ? '' : 'none')
                     })
 
 

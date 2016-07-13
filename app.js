@@ -4,9 +4,9 @@ var maya = {};
 		app.run(function ($rootScope, $state, $stateParams, $http, $timeout) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
-               $rootScope.role = "";
+               $rootScope.role = "user";
                $http.get("menu").then(function(data){
-                    $rootScope.role = data.userRole;
+                    $rootScope.role = data.data.userRole;
                 });
 				$rootScope.app = {
 					name: "中国银联日常统计分析系统",
