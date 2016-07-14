@@ -28,13 +28,20 @@
 	table tr td {
 	    overflow: hidden;
 	    text-overflow: ellipsis;
-	    work-break: break-word;
+	    word-break: break-word;
 		white-space: nowrap;
-	}
+	};
 	.hand {
 		cursor: pointer;
 	}
 	a {
 		text-decoration: none;
+	}
+	.download-disabled {
+		cursor: not-allowed;
+		color: grey;
+	}
+	table tr td.max-state-width {
+		max-width: 118px;
 	}
 }
