@@ -31,7 +31,7 @@
                     }, function(value) {
                         if(!rule[m][value]) {
                             elem.remove();
-                            scope.$destroy();
+                            // scope.$destroy();
                         }
 
                         // elem.css('display', rule[m][value] ? '' : 'none')
