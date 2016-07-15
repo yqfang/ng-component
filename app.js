@@ -1,6 +1,6 @@
 var maya = {};
 ;(function() {
-	var app = angular.module("maya", ['ng-package','up-components', 'maya-modules','ui.codemirror']);
+	var app = angular.module("maya", ['ng-package','up-components', 'uForm', 'maya-modules','ui.codemirror']);
 		app.run(function ($rootScope, $state, $stateParams, $http, $timeout) {
 			   $rootScope.$state = $state;
 			   $rootScope.$stateParams = $stateParams;
