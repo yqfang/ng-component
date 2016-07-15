@@ -44,7 +44,6 @@
                     }
                     
                     this.downloadFile = function(path) {
-                        debugger;
                         if(path.indexOf('FILE://') === -1) {
 				            path = 'FILE://' + path;
 			            }
@@ -121,7 +120,14 @@
 
                         })
                     }
-                    $scope.tableTitles = [{title: "任务描述",alias: "DESC"},{title: "开始时间",alias: "START_TIME"},{title: "结束时间",alias: "END_TIME"},{title: "提交用户",alias: "OPR_USER"},{title: "查询状态",alias: "TASK_ST"},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},
+                    $scope.tableTitles = [{title: "任务描述",alias: "DESC"},{title: "开始时间",alias: "START_TIME"},{title: "结束时间",alias: "END_TIME"},{title: "提交用户",alias: "OPR_USER"},{title: "查询状态",alias: "TASK_ST",transfer: {
+                        "EF": "失败结束",
+                        "WS": "等待调度",
+                        "SR": "调度完成、等待运行",
+                        "RN": "正在运行",
+                        "ES": "成功结束",
+                        "ED": "任务结束、不考虑成功和失败"
+                    }},{title: "结果",optName: "下载",optionAlias: "download",onclick: function(item,temp){/**download(item,temp)*/}},
                     {
                         title: "操作",optName: "日志",optionAlias: "showlogs",
                         opts: [
